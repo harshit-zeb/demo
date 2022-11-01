@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+
+            <stroke android:width="2px"
+                    android:color="@color/zebpay_main_blue"/>
+
+            <solid android:color="@color/white"/>
+
+            <padding android:bottom="5dp"
+                     android:left="5dp"
+                     android:right="5dp"
+                     android:top="5dp"/>
+
+            <corners android:radius="@dimen/_17sdp"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/bg_rounded_edittext_normal"/>
+
+</selector>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="4pt"
+    tools:context=".Login"
+    app:errorEnabled="true">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="30pt"
+        android:layout_weight="0"
+        android:text="Welcome Back!"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="10pt"
+        android:layout_weight="0"
+        android:text="Country" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="29dp"
+        android:dropDownWidth="match_parent"
+        android:spinnerMode="dialog"
+        android:layout_weight="0"
+        android:layout_gravity="center"
+        android:background="@drawable/spinner_background"
+        android:prompt="@string/alert_msg_select_country" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:paddingTop="20pt"
+        android:paddingBottom="5pt"
+        android:text="Mobile" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50pt"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_country_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_edittext_normal"
+            android:padding="6pt"
+            android:text="+91"
+            />
+
+        <EditText
+            android:id="@+id/phnumtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_edittext_normal"
+            android:maxLength="10"
+            android:hint="Mobile Number"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="30pt"
+        android:layout_weight="0"
+        android:text="@string/alert_msg_accept_terms_and_privacy"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/loginbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:background="@drawable/btn_blue_rounded_drawable"
+        android:backgroundTint="#2172EE"
+        android:gravity="center"
+        android:layout_marginBottom="4pt"
+        android:text="Login" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="10pt"
+            android:layout_weight="0.005"
+            android:text="@string/verify_phone_screen_note_lbl_title" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginBottom="10pt"
+            android:text="@string/verify_phone_screen_note_lbl_description" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/signup_background"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_marginRight="10pt"
+            android:text="@string/don_t_have_an_account"/>
+
+            <TextView
+                android:id="@+id/getstartedbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/signupbtn_background"
+                android:text="Get Started"
+                android:gravity="center"
+                android:textColor="#338FFF" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

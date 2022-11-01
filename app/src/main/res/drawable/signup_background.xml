@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape>
+        <solid android:color="@color/divider_history_sheet"/>
+        <corners android:radius="5dp"/>
+        <padding android:bottom="6pt"
+            android:top="6pt"
+            android:left="6pt"
+            android:right="6pt" />
+    </shape>
+</item>
+</selector>

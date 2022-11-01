@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/iv_bg_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_34sdp"
+        android:layout_marginBottom="@dimen/_55sdp"
+        app:layout_constraintBottom_toTopOf="@+id/iv_bottom_screen_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/ic_screen_3_5"/>
+
+    <ImageView
+        android:id="@+id/iv_bottom_screen_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/ic_screen_3_1"/>
+
+    <ImageView
+        android:id="@+id/iv_man_screen_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_35sdp"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_bottom_screen_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/iv_bottom_screen_3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/ic_screen_3_6"/>
+
+    <ImageView
+        android:id="@+id/iv_plant_screen_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_bottom_screen_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/iv_bottom_screen_3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/ic_screen_3_2"/>
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvWlcTitle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:includeFontPadding="false"-->
+    <!--android:text="@string/title_wlc_one"-->
+    <!--android:textColor="@color/zebpay_base_grey"-->
+    <!--android:textSize="@dimen/_17ssp"-->
+    <!--android:layout_marginTop="@dimen/_50sdp"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:fontFamily="@font/open_sans_semibold"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"/>-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_bottom_screen_3"
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:includeFontPadding="false"
+            android:text="@string/title_wlc_three"
+            android:textColor="@color/zebpay_base_grey"
+            android:textSize="@dimen/_21ssp"
+            app:fontFamily="@font/open_sans_semibold"/>
+
+        <!--
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:background="@drawable/bg_rounded_solid_red"
+                        android:includeFontPadding="false"
+                        android:paddingLeft="@dimen/_20sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingRight="@dimen/_20sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:text="@string/u20ac_10"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_22ssp"
+                        app:fontFamily="@font/proxima_nova_bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginBottom="0dp"
+                        android:includeFontPadding="false"
+                        android:text="Battle Tasted Security"
+                        android:textColor="@color/zebpay_base_grey"
+                        android:textSize="@dimen/_24ssp"
+                        app:fontFamily="@font/proxima_nova_bold" />
+                </LinearLayout>
+        -->
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

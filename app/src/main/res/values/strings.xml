@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Zebpay Tic Tac Toe</string>
+
+    <!--Enter Mobile Screen starts-->
+    <string name="verify_phone_screen_header_title">Login</string>
+    <string name="verify_phone_screen_note_lbl_title">Disclaimer</string>
+    <string name="verify_phone_screen_note_lbl_description">Trading in cryptocurrencies is subject
+        to market, technical, and legal risks.</string>
+    <string name="verify_phone_screen_lbl_agree_terms_and_conditions">I have read and understood
+        the </string>
+    <string name="verify_phone_screen_btn_accept_and_continue">Proceed Securely</string>
+    <string name="verify_phone_screen_lbl_desc_1">ZebPay will send a verification code by SMS to your mobile number. Carrier charges may apply.
+    </string>
+    <string name="register">Create one here!</string>
+    <string name="don_t_have_an_account">No account? Create one here</string>
+    <string name="verify_phone_screen_lbl_desc_2">Please select your country and enter
+        your mobile number.</string>
+    <string name="verify_phone_screen_number_txt_placeHolder">Mobile number</string>
+    <string name="alert_msg_mobile_number_length_validation">Please enter your mobile number
+    </string>
+    <string name="alert_msg_mobile_number_validation">Please enter your mobile number
+        without any space or special character</string>
+
+    <string name="alert_msg_accept_terms_and_privacy">Please read and accept the Terms of Use &amp;
+        Privacy Policy to get started.</string>
+    <string name="alert_msg_select_country">Select Country</string>
+
+    <string name="alert_msg_mobile_number_0_prefix">Kindly remove \'0\' prefix from your number.
+    </string>
+    <string name="verify_mobile_number_screen_header_title">Set Account PIN</string>
+    <string name="verify_mobile_number_screen_lbl_desc_1">Mobile number verified</string>
+    <string name="verify_mobile_number_screen_lbl_desc_2">Next you\'ll create a 4-digit pin for account security.</string>
+    <string name="verify_mobile_number_screen_lbl_desc_3">Please do not share your PIN with anyone.
+        ZebPay will never ask for your PIN.</string>
+    <string name="verify_mobile_number_screen_lbl_desc_3_new">Keep your PIN secret! No ZebPay representative will ever ask for your PIN. Beware of fake social media accounts or email scams. </string>
+    <!--Enter Mobile Screen ends -->
+
+
+    <!-- Verify Mobile Error Screen start -->
+    <string name="oops">"Oops"</string>
+    <string name="try_again">"Try Again"</string>
+    <string name="something_went_wrong">"Something went wrong"</string>
+    <string name="try_verify_number">"We tried to verify your number"</string>
+    <string name="support_ticket">"For support, please go to"</string>
+    <string name="ticket_zebpay_com">"help.zebpay.com"</string>
+    <string name="verify_mobile_number_screen_setupPIN_btn_title">Next: Set your PIN</string>
+    <string name="title_verification_error">Verification Error</string>
+    <!-- Verify Mobile Error Screen end -->
+
+
+    <!--Verify OTP starts-->
+    <string name="verify_otp">Verify OTP</string>
+    <string name="enter_otp_screen_header_title">Enter Verification Code</string>
+    <string name="enter_otp_screen_txt_placeHolder">Verification code</string>
+    <string name="enter_otp_screen_verify_btn_title">Verify</string>
+    <string name="enter_otp_screen_lbl_desc">Please enter the verification code sent to</string>
+    <string name="alert_msg_otp_validation">Please enter the verification code.</string>
+    <string name="alert_msg_otp_number_validation">Oops! The code you entered is invalid. Please check the SMS and try again.</string>
+    <string name="call_me">Call Me</string>
+    <string name="didn_t_get_a_verification_code_nget_verified_via_call_after">Didn\'t get the code?\nWhen the timer ends, tap the Call Me button and we\'ll call you.</string>
+    <!--Verify OTP ends-->
+
+
+    <!--Setup PIN and Verify PIN starts-->
+    <string name="verify_pin_screen_header_title_new_user">Set Account PIN</string>
+    <string name="verify_pin_screen_lbl_desc_new_user_confirm_pin">Confirm the 4 digit PIN</string>
+    <string name="verify_pin_screen_lbl_desc_new_user">Enter 4 digit PIN</string>
+    <string name="alert_msg_pin_and_confirm_pin_not_matched">PIN does not match.</string>
+    <string name="alert_msg_pin_improve">Please choose a stronger PIN to secure your account.
+    </string>
+    <string name="title_set_up_fingerprint">Set Up Fingerprint</string>
+    <string name="message_use_fingerprint_for_zebpay_pin">Use Fingerprint instead of PIN?</string>
+    <!--Setup PIN and Verify PIN ends-->
+
+
+    <!--Receive address screen start -->
+    <string name="destination_tag">Tag</string>
+    <string name="HLP3_dynamic">Enter a name for this %1$s on this %1$s address. A QR code icon will appear.\n\nTap that icon to show the QR code so the sender can scan it. You can also copy the address and share it by email or message.
+    </string>
+    <string name="title_receive_currency">Receive %1$s</string>
+    <!-- <string name="title_currency_address">%1$s Address</string>-->
+    <string name="title_add_new_currency_address">Add New %1$s Address</string>
+    <string name="title_update_currency_address">Update %1$s Address</string>
+    <string name="title_new_receiving_address">New Receiving Address</string>
+    <string name="share_your_currency_address">Share your %1$s address</string>
+    <string name="this_is_my_currency_address">This is my %1$s address : \n %2$s</string>
+    <string name="currency_address_already_exist">This address already exists.</string>
+    <string name="success_email_text">A verification email has been sent to %1s. Please check your inbox and verify your
+        email address.
+    </string>
+    <string name="share_this_currency_address_to_receive_payments">Share this %1$s address to receive %1$s in your ZebPay wallet.
+    </string>
+    <!--Receive address screen ends  -->
+
+
+    <!-- Enter Payment Reference Dialog start-->
+    <string name="cancel">"Cancel"</string>
+    <string name="ok">"OK"</string>
+    <string name="yes">"Yes"</string>
+    <string name="no">"No"</string>
+    <!-- Enter Payment Reference Dialog end-->
+
+    <!--Support center screen starts  -->
+    <string name="zendesk_help_center">"Help Center"</string>
+    <string name="zendesk_createticket">"Create a ticket"</string>
+    <string name="zendesk_mytickets">"My tickets"</string>
+    <string name="zendesk_chat_bot">"Chat"</string>
+
+    <string name="support_desc_chat">"Use the Chatbot to find resolutions, self serve &amp; raise tickets."</string>
+    <string name="support_desc_create_ticket">"Raise a ticket if unable to Self  Serve"</string>
+    <string name="support_desc_my_ticket">"View the current status of your unresolved tickets"</string>
+    <string name="support_desc_help">"Self serve for instant resolutions"</string>
+
+    <!--Support center screen ends  -->
+
+    <!-- User profile screen -->
+    <string name="hint_first_name">"First name"</string>
+    <string name="hint_last_name">"Last name"</string>
+    <string name="please_enter_email_id">Email address</string>
+    <string name="please_enter_your_email_address">Please enter your email address.</string>
+    <string name="please_enter_valid_email_address">Please enter valid email address.</string>
+    <string name="you_have_not_changed_anything">You haven\'t changed anything</string>
+    <string name="image_not_uploaded">Images upload unsuccessfully. Please try again.</string>
+    <string name="uploading">Uploading…</string>
+    <string name="profile">Profile</string>
+    <string name="profile_updated_successfully">Profile updated successfully</string>
+    <string name="save">Save</string>
+    <string name="please_enter_name">Please enter your name.</string>
+    <string name="invalid_name">Please enter your name without any spaces or special characters.</string>
+    <string name="enter_existing_pin_verify_account">Please enter your PIN to verify your account.</string>
+    <string name="attempt_remaining">" attempts remaining."</string>
+    <string name="confirm_your_pin">Confirm your PIN</string>
+
+    <!--<string name="app_block_contact_admin">Application is block.Please contact admin.</string>-->
+
+    <string name="enter_correct_password">Incorrect PIN</string>
+    <string name="problem_in_capturing_image">Problem in capturing image.</string>
+    <string name="problem_in_selecting_image">Problem in selecting image.</string>
+    <string name="auto_fill_or">Or enter them below</string>
+    <!--Pops up the auto email suggestion to zebpay.Application.ui.user to avoid the mistake.-->
+    <string-array name="auto_email_suggestion_list">
+        <item>"@gmail.com"</item>
+        <item>"@yahoo.com"</item>
+        <item>"@yahoo.co.in"</item>
+        <item>"@rediffmail.com"</item>
+        <item>"@hotmail.com"</item>
+        <item>"@yahoo.in"</item>
+        <item>"@outlook.com"</item>
+        <item>"@ymail.com"</item>
+        <item>"@live.com"</item>
+        <item>"@icloud.com"</item>
+        <item>"@live.in"</item>
+        <item>"@rocketmail.com"</item>
+        <item>"@rediff.com"</item>
+    </string-array>
+    <!-- profile screen Ends -->
+
+
+    <!--Finger print dialog start-->
+    <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="fingerprint_hint">Touch sensor</string>
+    <string name="fingerprint_success">Fingerprint recognized</string>
+    <!--Finger print dialog end-->
+
+
+    <!--Play Store Rating Dialog start-->
+    <string name="dilog_play_store_rating_title">"Rate Our App"</string>
+    <string name="dilog_play_store_rating_desc">"Your feedback is very valuable to us.
+        Would you like to rate our app on Play Store?"</string>
+    <!--Play Store Rating Dialog ends-->
+
+
+    <!-- invoice screen start -->
+    <string name="zebpay">ZebPay</string>
+    <string name="india">India</string>
+    <string name="notes">Notes</string>
+    <string name="simple_secure_bitcoin">Simple secure bitcoin</string>
+    <string name="_1_complete_payment_within_4_hours">1) Complete the payment within 4 hours.
+    </string>
+    <string name="_2_do_payment_via_neft_imps_or_rtgs_only">2) Make payment via NEFT, IMPS
+        or RTGS only.</string>
+    <string name="_3_mention_order_number_in_payment_notes_or_memo">3) Please mention the order
+        number in payment notes or memo.</string>
+    <string name="_4_upload_payment_reference_number_or_payment_receipt">4) Upload payment reference number or payment
+        receipt
+    </string>
+    <string name="terms">Terms</string>
+    <string name="bank_name_">Bank name</string>
+    <string name="account_name_">Account name</string>
+    <string name="account_no">Account no.</string>
+    <string name="ifsc_rtgs_neft">IFSC (RTGS/NEFT)</string>
+    <string name="rate">Rate</string>
+    <string name="fees">Fees</string>
+    <string name="blog">Blog</string>
+    <string name="tax">Tax</string>
+    <string name="total">Total</string>
+    <string name="order_no">Order no.</string>
+    <string name="share">Share</string>
+    <string name="copy">Copy</string>
+    <string name="close">"Close"</string>
+    <string name="status">Status</string>
+    <!--invoice screen ends here-->
+
+
+    <!--Password screen -->
+    <string name="enter_pin_to_confirm_transaction">Enter PIN to confirm this transaction</string>
+    <string name="enter_pin">Enter PIN</string>
+    <string name="_3_attempts_remaining">3 Attempts remaining</string>
+    <string name="forgot_pin">Forgot PIN?</string>
+    <string name="forgot_pin_"><![CDATA[<u>Forgot PIN?</u>]]></string>
+    <string name="attepts_remainings">" Attempts remaining "</string>
+    <!--<string name="application_blocked">Application is block.Please contact admin.</string>-->
+
+    <!--Password input start-->
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_0">0</string>
+    <!--Password input ends-->
+
+
+    <!--Create send address screen start-->
+    <string name="name">Name</string>
+    <string name="SEN1">Paste %1$s address or scan QR code</string>
+    <string name="barcode_reader">QrCode Reader</string>
+    <string name="not_able_to_scan_qr_code">Unable to scan QR code</string>
+    <string name="save_address">save address</string>
+    <string name="update_address">update address</string>
+
+    <string name="enter_address_label">Enter Address Label</string>
+    <string name="enter_recipient_address">Enter Recipient Address</string>
+    <string name="enter_destination_tag_memo">Enter Destination Tag/Memo</string>
+    <string name="enter_beneficiary_name">Enter Beneficiary’s Full Name</string>
+    <string name="select_beneficiary_platform">Select Beneficiary’s Platform</string>
+    <string name="enter_platform_name">Enter Platform Name</string>
+    <string name="search_platform">Search Platform</string>
+    <string name="update_address_dialog_title">Update Address</string>
+    <string name="update_address_dialog_desc">To continue using this address kindly update it as per the new regulations &amp; terms </string>
+
+    <!--Create send address screen end-->
+
+    <!--Transaction detail screen start  -->
+    <string name="send_all">send all</string>
+    <string name="write_your_note_here">Write your /notes/ here</string>
+    <string name="sent">sent</string>
+    <string name="bitcoin">&#xf15a;</string>
+    <string name="transaction_detail">Transaction Detail</string>
+    <string name="received">received</string>
+    <string name="plus">+</string>
+    <string name="show_details">show details</string>
+    <string name="payment_reference">Payment Reference</string>
+    <string name="invoice">Invoice</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="please_enter_amount">Please enter amount</string>
+    <string name="insufficient_send_balance">Insufficient %1$s balance. You can send up to %2$s %3$s only</string>
+
+    <!--Transaction detail screen start  -->
+
+
+    <!--order settlement screen start-->
+    <string name="filled_qty">Filled qty</string>
+    <string name="avg_fill_price">Avg fill price</string>
+    <string name="effective_price">Effective price</string>
+    <string name="price_fiat_symbol">≈ Unit price (%1$s)</string>
+    <string name="amount_fiat_symbol">≈ Amount (%1$s)</string>
+    <string name="equivalent_amount_fiat_label">Amount(%1$s)</string>
+    <string name="quantity_symbol">Qty : open/fills (%1$s)</string>
+    <string name="amt_fiat_symbol">Amt(%1$s)</string>
+    <string name="fee_fiat_symbol">Fee(%1$s)</string>
+    <string name="qty_symbol">Qty(%1$s)</string>
+    <string name="quantity">Quantity</string>
+    <string name="price">Price</string>
+    <string name="amount">Amount</string>
+    <string name="useramount">User amt</string>
+    <string name="quantity_fill_symbol">Qty : fills (%1$s)</string>
+
+    <string name="only_fees">Fees</string>
+    <string name="fees_and_tds">Fees &amp; TDS</string>
+    <string name="fees_and_tds_currency">Fees &amp; TDS(%1$s)</string>
+    <!--order settlement scree ends-->
+
+
+    <!--Trade header screen start-->
+    <string name="exchange_header_price_buy">Buy</string>
+    <string name="exchange_header_price_sell">Sell</string>
+    <string name="exchange_header_high">High</string>
+    <string name="exchange_header_low">Low</string>
+    <string name="exchange_header_last_rate_price">Last price</string>
+    <string name="exchange_my_order_sell">Sell</string>
+    <string name="exchange_my_order_buy">Buy</string>
+    <string name="time">Time</string>
+    <string name="buy_max">Buy max</string>
+    <string name="sell_max">Sell max</string>
+    <string name="volume">Volume</string>
+    <string name="double_dash">--</string>
+    <!--Trade header screen end-->
+
+
+    <!--Trade tab starts-->
+    <string name="tab_trade">Trade</string>
+    <string name="tab_history">History</string>
+    <string name="tab_my_order">My Orders</string>
+    <string name="tab_book">Book</string>
+    <string name="tab_chart">Chart</string>
+    <!--Trade tab ends-->
+
+
+    <!--Coin transaction screen start -->
+    <string name="title_crypto_international">Wallet History</string>
+    <string name="title_crypto">Crypto History</string>
+    <string name="title_transaction">Transaction History</string>
+    <string name="magic_moment">Magic Moment</string>
+    <string name="free">"Free "</string>
+    <string name="earned">" Earned"</string>
+    <string name="purchased">" Purchased"</string>
+    <string name="buy">Buy</string>
+    <string name="sell">" Sell"</string>
+    <string name="bid">" Bid"</string>
+    <string name="ask">" Ask"</string>
+    <string name="attention">Attention!</string>
+    <string name="zebpay_compay_line">\u00a9</string>
+    <string name="not_transaction">You haven’t done any transactions yet.</string>
+    <!--Coin transaction screen end -->
+
+
+    <!--ERROR MESSAGES FOR MY CURRENCY ADDRESS START-->
+    <string name="address_copied">Address has been copied.</string>
+    <string name="tag_copied">%1$s has been copied.</string>
+    <string name="tag_address_copied">Address with %1s has been copied.</string>
+    <!--ERROR MESSAGES FOR MY CURRENCY ADDRESS END-->
+
+
+    <!--Security center Screen Text -->
+    <string name="changepin">Change PIN</string>
+    <string name="changepin_desc">You can simply change your PIN from here.</string>
+    <string name="lock_outgoing_transactions">Lock Outgoing Transactions</string>
+    <string name="you_can_enable_outgoing_transactions_anytime_by_doing_otp_sms_verification">
+        You can enable outgoing transactions anytime via OTP SMS verification.</string>
+
+    <string name="fingerprint">Enable Finger print</string>
+    <string name="fingerprint_desc">Use Fingerprint instead of PIN.</string>
+    <string name="bitcoin_rate_alert">Bitcoin Rate Alert</string>
+    <string name="ratealert_desc">Enable rate alert if rate changes more than</string>
+    <string name="sound_alert">Sound Alert</string>
+    <string name="sound_alert_desc">Play sound when there is a notification.</string>
+    <string name="vibrate_alert">Vibrate Alert</string>
+    <string name="vibrate_alert_desc">Vibrate phone when there is a notification.</string>
+    <string name="export_my_data">Export My Data</string>
+    <string name="get_your_personal_information_you_have_shared_with_us_along_with_transaction_details">
+        Get a copy of your profile information and transaction details.
+    </string>
+    <string name="deactivate_account">Deactivate Account</string>
+    <string name="you_can_request_to_deactivate_your_account_provided_your_balance_is_below_the_threshold_limit_this_action_cannot_be_undone">
+         Permanently deactivate your ZebPay account. Your balance must be below the minimum threshold. Caution: this action cannot be undone.</string>
+
+    <!--Security center Screen Text ends -->
+
+
+    <!--welcome screen start -->
+    <string name="title_wlc_one">Buy/Sell Crypto Instantly</string>
+    <string name="title_wlc_two">Over 5M Users, US$10B Volume</string>
+    <string name="title_wlc_three">Battle-Tested Security</string>
+    <string name="desc_wlc_one">Welcome Bonus</string>
+    <string name="no_thanks">No Thanks</string>
+    <!--welcome screen end -->
+
+
+    <!--Address whitelist start-->
+    <string name="address_status_line">The status of a whitelisted address will be shown with a
+        shield icon as follows</string>
+    <string name="initiate">Initiate</string>
+    <string name="inreview">In review</string>
+    <string name="whitelisted">Whitelisted</string>
+    <string name="proceed">Proceed</string>
+    <string name="title_address_whitelisting">Address Whitelisting</string>
+    <string name="we_want_to_protect_your_account">We want to protect your account</string>
+    <string name="content_remove_white_list_pending">Are you sure want to remove this pending
+        request of address whitelisting?</string>
+    <string name="content_remove_white_list_approved">Are you sure you want to remove this whitelisted address?</string>
+    <string name="enter_zebpay_pin">Enter PIN to proceed</string>
+    <string name="title_account_restricted">Account Restricted</string>
+    <string name="sorry">Sorry</string>
+    <string name="remove_address">Remove address</string>
+    <string name="whitelist">Whitelist</string>
+    <!--Address whitelist end-->
+
+
+    <!--Account block screen start -->
+    <string name="you_have_reached_3_wrong_attempts_to_enter_pin">You have reached the
+        maximum number of attempts to enter your PIN.</string>
+    <!--Account block screen end -->
+
+    <!--Pin Lock screen start -->
+    <!--<string name="account_block">Application is block.Please contact admin.</string>-->
+
+    <string name="please_enter_your_existing_pin">Please enter your existing PIN</string>
+    <string name="enter_pin_to_unlock_app">Enter your pin to unlock app</string>
+    <string name="enter_your_pin">Enter your pin</string>
+    <string name="safe_link_sent_to_you_via_sms">Safe link sent to you via SMS</string>
+    <!--Pin Lock screen end -->
+
+
+    <!--app update popup start-->
+    <string name="update">Update</string>
+    <!--app update popup end-->
+
+    <!--Network toast start-->
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <!--Network toast end-->
+
+    <!--Instant pin Reset screen start -->
+    <string name="reset_pin">Reset PIN</string>
+    <string name="for_your_account_safety_only_few_features_are_accessible_for_next_24_hours">
+        For your account safety, only few features are accessible for next 24 hours .</string>
+    <string name="trade_coins">Trade coins</string>
+    <string name="receive_coins">Receive coins</string>
+    <string name="add_new_address">Add new send address</string>
+    <string name="change_outgoing_transaction">Change outgoing transaction</string>
+    <string name="send_coins">Send coins</string>
+    <!--Instant pin  Reset screen end -->
+
+
+    <!--Archive List screen start -->
+    <string name="title_archived_address">Archived Address</string>
+    <string name="archive_desctiption">This address will be archived and will no longer be in use.</string>
+    <string name="unarchive_desctiption">Are you sure you want to unarchive the address?</string>
+    <string name="archive">Archive</string>
+    <string name="unarchive">Unarchive</string>
+    <string name="already_archived_address_message">
+        <![CDATA[This address is already added & has been archived, so you can not add this address. Please try with new receiving address.]]></string>
+    <!--Archive List screen ends -->
+
+
+    <!--Log out alert  start-->
+    <string name="log_out">Log Out</string>
+    <string name="title_log_out">Are you sure you want to log out of ZebPay?</string>
+    <string name="message_log_out">You can log back in any time!</string>
+    <!--<string name="title_two_step_verification">2-Step Verification</string>-->
+    <string name="hint_enter_otp">Enter OTP</string>
+    <!--Log out alert  ends-->
+
+
+    <!--Permission dialog start-->
+    <string name="continue_">Continue</string>
+    <string name="allow_us_to_set_permission">Allow us to</string>
+    <string name="permission_title_read_phone">Read Phone</string>
+    <string name="permission_description_read_phone">This will help us read your IMEI and ISMI
+        number for security purposes against your trade transactions.</string>
+    <string name="permission_title_open_camera">Open Camera</string>
+    <string name="permission_description_open_camera">This will allow us to capture images of
+        documents wherever required. This is required for KYC, trading and user profiles.</string>
+    <string name="permission_title_open_storage">Open Storage</string>
+    <string name="permission_description_open_storage">This will allow us to store images of
+        documents wherever required. This is required for KYC, trading and user profiles.</string>
+    <string name="permission_get_account">Get your device email address</string>
+    <string name="permission_description_read_contact">This will help us to auto-fetch your
+        device\'s registered email address. This email address is required for your account
+        verification (KYC) &amp; sending security notifications.</string>
+    <!--Permission dialog end-->
+
+
+    <!--Trending screen  starts -->
+    <string name="hint_search_coins">" Search coins"</string>
+    <string name="action_title_login">Get started with ZebPay</string>
+    <string name="action_title_bank">Your Bank Account</string>
+
+    <string name="action_email_desc">Verify your email address to complete account setup.</string>
+    <string name="action_login_desc">Signup or Signin here</string>
+    <string name="action_btn_login">Let\'s go</string>
+    <!--Trending screen  ends -->
+
+    <!--Login dialog starts -->
+    <string name="login">Login</string>
+    <string name="please_register_login_to_access_trade">Please Login or Signup \n to access account features.</string>
+    <!--Login dialog ends  -->
+
+
+    <!--Fiat Transaction start-->
+    <string name="referral_reward_text">You have earned a referral reward.</string>
+    <string name="maker_reward_text">You have earned a maker reward.</string>
+    <string name="welcome_bonus_text">Here\'s a bonus to help you get started.</string>
+    <string name="str_new">New</string>
+    <string name="get_started">Get Started</string>
+    <string name="sign_in">Sign up</string>
+    <string name="promocode_reward_text">You have earned a Promocode reward.</string>
+    <string name="normal_transfer">(normal transfer)</string>
+    <string name="payment_gateway">(payment gateway)</string>
+    <string name="express_payment">(express transfer)</string>
+    <string name="sec">sec</string>
+    <string name="fees_value">Fees %s</string>
+    <!--Fiat Transaction end-->
+
+
+    <!--Account screen starts -->
+    <string name="title_account">My Account</string>
+
+    <string name="menu_refresh">refresh</string>
+    <!--Account screen ends -->
+
+
+    <!--About us screen starts-->
+    <string name="title_about_us">About Us</string>
+    <string name="about_us_twitter">Twitter</string>
+    <string name="about_us_telegram">Telegram</string>
+    <string name="about_us_youtube">YouTube</string>
+    <string name="about_us_facebook">Facebook</string>
+    <string name="about_us_linkedin">LinkedIn</string>
+    <string name="about_us_blog">Medium</string>
+    <string name="about_us_instagram">Instagram</string>
+    <string name="about_us_tou">Terms of Use</string>
+    <string name="about_us_privacy">Privacy Policy</string>
+    <string name="follow_us_on_social_media">Connect with us on social media</string>
+    <!--About us screen starts-->
+
+
+    <!--Account Deactivate screen -->
+    <string name="deactivate_account_title">Are you sure you want to permanently deactivate your ZebPay account?</string>
+    <string name="deactivate_account_description">
+        This action cannot be undone. You will permanently lose the ability to trade on ZebPay or use your ZebPay wallet. We may retain your personal and transactional data for a period of time to fulfill compliance requirements, as per the terms of use.</string>
+    <!--Ends here-->
+
+
+    <!--Security center starts-->
+    <string name="message_lock_outgoing_transactions">Please confirm that you want to lock all your
+        outgoing  cryptocurrency transactions. You can enable it again anytime by undertaking
+        OTP SMS verification</string>
+    <string name="message_allow_outgoing_transactions">To allow all outgoing cryptocurrency
+        transactions, please enter your PIN and complete OTP SMS verification.</string>
+    <!--Security center ends-->
+
+
+    <!--Kyc Global start-->
+    <string name="select_option">Take a photo or upload from device</string>
+    <string name="dash">-</string>
+    <string name="progress">progress</string>
+    <string name="text_declaration">Kindly submit the following details about you.</string>
+    <string name="transition_pan_card">pancardimage</string>
+    <!--Kyc Global ends-->
+
+
+    <!--Instant(Buy/sell) screen starts -->a
+    <string name="coin_equal_rate" formatted="true">1 %1s ~ %2s</string>
+    <string name="confirm_trade">Place Order</string>
+    <string name="you_are_buying">You are buying</string>
+    <string name="you_are_selling">You are selling</string>
+    <string name="amount_debited">Amount to be debited</string>
+    <string name="amount_credited">Amount to be credited</string>
+    <string name="buying_amount">Buying Amount</string>
+    <string name="selling_amount">Selling Amount</string>
+    <string name="rate_is_not_available">Rate is not available</string>
+    <string name="please_provide_quantity_input">Please enter quantity to proceed</string>
+    <string name="please_provide_amount_input">Please enter amount to proceed</string>
+    <string name="min_quantity">Min Quantity %1$s %2$s</string>
+    <string name="max_quantity">Max Quantity %1$s %2$s</string>
+    <string name="min_amount">Min Amount %1$s %2$s</string>
+    <string name="max_amount">Max Amount %1$s %2$s</string>
+    <string name="quick_buy">Buy</string>
+    <string name="quick_sell">Sell</string>
+
+    <string name="feees_lable">Fees (~%1s%%)</string>
+
+    <string name="tds_lable">TDS (%1s%%)</string>
+    <string name="exclusive_fees_and_TDS_label">Fees &amp; TDS</string>
+    <string name="exclusive_fees_label">Fees</string>
+
+    <!--Instant(Buy/sell) screen ends -->
+
+
+    <!--Rate Alert screen start -->
+    <string name="title_alert">%1$s Alerts</string>
+    <string name="title_add_alert">Add %1$s Alert</string>
+    <string name="sign_greater_equal">≥</string>
+    <string name="sign_less_equal">≤</string>
+    <string name="label_alert_price">Alert Price</string>
+    <string name="label_trade_pair">Trade Pair</string>
+    <string name="label_alerts">My Alerts</string>
+    <string name="add_alert">Add Alert</string>
+    <string name="lable_no_alerts_found">Set market alerts to get an update from us when your target price is hit!</string>
+    <string name="delete">Delete</string>
+    <string name="save_alert">Save Alert</string>
+    <string name="rate_alert_last_price">Last Price</string>
+    <string name="validation_empty_alert_price">Please set price for the alert</string>
+    <string name="validation_same_price_as_ltp">Alert price can\'t be equal to the last price</string>
+    <string name="invalid_rate_price">Please enter a valid price</string>
+    <!--Rate Alert screen ends -->
+
+
+    <!--Lightning screen Pay starts -->
+    <string name="no_email_message_for_rate_Alert">Please verify your email address to set rate alerts</string>
+    <string name="please_try_again">Please try again later</string>
+    <!--Lightning screen pay ends -->
+
+
+    <!--Lightning screen request starts -->
+    <string name="know_more">Know more</string>
+    <!--<string name="action_kyc_lightning_desc_india">Thank you for your interest but you need to
+        complete your KYC for this. And currently we are not accepting new KYC requests
+        from India</string>-->
+    <!--Lightning screen request ends -->
+
+
+    <!--Trade buy/sell starts -->
+    <string name="set_price">Set price</string>
+    <string name="balance">balance</string>
+    <string name="btn_sell_now">Place sell order</string>
+    <string name="btn_buy_now">Place buy order</string>
+    <string name="btn_confirm_buy">Confirm buy</string>
+    <string name="btn_confirm_sell">Confirm sell</string>
+    <string name="fees_button_text">
+        <b><u>Fees</u></b>
+    </string>
+    <string name="price_with_fiat_symbol">Price (%1$s)</string>
+    <string name="amount_with_fiat_symbol">Amount (%1$s)</string>
+    <string name="quantity_with_symbol">Quantity (%1$s)</string>
+    <string name="stop_price">Stop price</string>
+    <string name="limit_price">Limit price</string>
+    <string name="error_enter_amount">Enter amount</string>
+    <string name="error_enter_quantity">Enter quantity</string>
+    <string name="error_enter_stop_price">Enter stop price</string>
+    <string name="error_enter_limit_price">Enter limit price</string>
+    <string name="error_insufficient_balance">Insufficient balance</string>
+    <string name="error_enter_price">Enter price</string>
+
+    <!--    //Insufficient INR balance. You can place an order for INR xxxx only-->
+    <string name="new_insuffiecient_balance">Insufficient %1$s balance. You can place an order upto %2$s %3$s only</string>
+    <string name="zero_balance">Insufficient %1$s balance. Please add sufficient %1$s balance to place an order</string>
+    <!--Trade buy/sell ends -->
+
+
+    <!--Trade Fee dialog start -->
+    <string name="from_currency">From (%1$s)</string>
+    <string name="to_currency">To (%1$s)</string>
+    <string name="fees_currency">Fees (%1$s)</string>
+    <string name="trading_fees">Trading Fees</string>
+    <string name="tds_and_trading_fees">TDS &amp; Trading Fees</string>
+    <string name="your_trading_fees_level">Your trading fee level</string>
+    <string name="to_see_all_fees">To see all fees including membership, withdrawal, deposit</string>
+    <string name="click_here"><font color="#2072EF"><b><u>click here</u></b></font></string>
+    <!--Trade Fee dialog ends -->
+
+
+    <!-- Trade My order screen starts -->
+    <string name="no_orders_found">No orders found for the selected trade pair.</string>
+    <string name="u20ac_10">€10</string>
+    <string name="t_c">(T&amp;C)</string>
+    <string name="load_more">Load More</string>
+    <string name="pending_balance">Pending balance</string>
+    <string name="please_wait">Please wait…</string>
+    <!-- Trade My order screen starts -->
+
+
+    <!--Trade book screen starts-->
+    <string name="no_sell_orders">no sell orders</string>
+    <string name="no_buy_orders">no buy orders</string>
+    <string name="spread">Spread :</string>
+    <string name="dots">…</string>
+    <!--Trade book screen ends -->
+
+
+    <!--Trade chart screen starts -->
+    <string name="depth">Depth</string>
+    <string name="onemin">1m</string>
+    <string name="fiveminutes">5m</string>
+    <string name="fifteenminutes">15m</string>
+    <string name="onehour">1h</string>
+    <string name="oneday">1d</string>
+    <string name="oneweek">1w</string>
+    <string name="more">More</string>
+    <!--Trade chart screen ends -->
+
+
+    <!--NPS dialog start  -->
+    <string name="btn_submit">Submit</string>
+    <!--NPS dialog ends-->
+
+    <!--Image select dialog start -->
+    <string name="camera">"Camera"</string>
+    <string name="gallery">"Gallery"</string>
+    <string name="skip">SKIP</string>
+    <string name="start">
+        <b>Done</b>
+    </string>
+    <!--Image select dialog end  -->
+
+    <!-- Kyc and Email alert  starts -->
+    <string name="no_kyc_deposit_withdraw_message">Please complete your KYC process to
+        deposit / withdraw money.</string>
+
+    <!--    <string name="no_kyc_trade_message">Please complete your KYC process to start trading in-->
+    <!--        multicoin.-->
+    <!--    </string>-->
+    <!-- Kyc and Email alert  ends -->
+
+    <!--Manfiest title start -->
+    <string name="title_activity_password">Please Confirm This Transaction</string>
+    <string name="title_verify">Verify Your Phone Number</string>
+    <string name="title_verifying">Verify Your Phone Number</string>
+    <string name="title_activity_enter_pin">Enter PIN</string>
+    <!--Manfiest title ends -->
+
+
+    <!--Others-->
+    <string name="down_arrow">&#8595;</string>
+    <string name="up_arrow">&#8593;</string>
+    <string name="remove">Remove</string>
+
+
+    <!--***************************SOCIAL PROVIDER COMPONENTS START*************************-->
+
+
+    <string name="tab_address_send">Send</string>
+    <string name="tab_address_receive">Receive</string>
+    <string name="wallet_add_new_address">+ Add new address</string>
+    <string name="i_understand">I Understand</string>
+    <string name="scan_address">Scan address</string>
+    <string name="paste_address">Paste address</string>
+    <string name="or">Or</string>
+    <string name="app">App</string>
+    <string name="transaction_notifications">Transaction notifications</string>
+    <string name="transactions_notification_desc">Send me updates on transactions in my account</string>
+    <string name="account_notifications">Account notifications</string>
+    <string name="account_notifications_desc">Send me updates on changes to my account</string>
+    <string name="security_notifications">Security notifications</string>
+    <string name="security_notifications_desc">Send notifications about new send/receive addresses, PIN change/reset, stopping outgoing transactions, or mobile number changes
+    </string>
+    <string name="rate_updates">Rate Updates</string>
+    <string name="market_analysis">Market Analysis</string>
+    <string name="zebpay_updates">ZebPay Updates</string>
+    <string name="device">Device</string>
+    <string name="hint_select_source_of_funds">Select source of funds</string>
+    <string name="hint_select_occupation">Select occupation</string>
+    <string name="title_your_right">Your Rights</string>
+    <string name="not_now">Not now</string>
+    <string name="hint_add_reason_for_deactivation">Add reason for deactivation</string>
+    <string name="title_nationality_residency">Please select your Nationality &amp; Country of Residency.</string>
+    <string name="country_of_citizenship">Nationality</string>
+    <string name="country_of_residency">Country of Residency</string>
+    <string name="create_your_statement">Request your statement</string>
+    <string name="you_will_receive_statement_by_email">We will send it to your registered email</string>
+    <string name="select_statement_type">Select statement type</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="select_format">Select Format</string>
+    <string name="select_date">Select Date</string>
+
+    <string name="csv">CSV</string>
+    <string name="pdf">PDF</string>
+    <string name="select_statement">Please select Statement</string>
+    <string name="select_from_date">Please select From date</string>
+    <string name="select_to_date">Please select To date</string>
+    <string name="from_date_smaller">From date should be smaller than To date.</string>
+    <string name="date_365days_morethan">Date Difference should not be more than 365 days</string>
+
+    <string name="thank_you_for_your_patience">Uploads successful!</string>
+    <string name="kyc_submitted_successfully">We will process your KYC as quickly as possible.</string>
+
+    <string name="statement_sent_successfully">Statement sent successfully</string>
+    <string name="statements_sent_successfully">Statements sent successfully</string>
+
+    <string name="sent_emailed_trade_statement">Check your registered email after 15 minutes.</string>
+    <string name="okay">OK</string>
+    <string name="new_okay">Okay</string>
+    <string name="select_document">Select Document</string>
+    <string name="residency_text">Residency</string>
+    <string name="enter_nationality_text">Enter Nationality</string>
+    <string name="enter_residency_text">Enter Country of Residency</string>
+    <string name="terms_and_privacy">I hereby consent to the document usage terms given <a href="terms:">here</a></string>
+
+
+    <string name="here_top_text">The ID proof (PAN Card) and Address proof (Aadhaar card, Driving License, Passport or Utility Bill) that I am hereby submitting, may be used by Awlencan Innovations India Limited for one or more of the following purposes:</string>
+    <string name="here_bullet_point_one">Verification by Awlencan Innovations India Limited</string>
+    <string name="here_bullet_point_two">Transmission of my sensitive personal information, if any,to its third party service providers, as permitted under applicable laws, to store and use the same for verification purposes</string>
+    <string name="here_bullet_point_there">Creating images thereof and retain such images, and/or forward the same to its service providers for verification purposes</string>
+    <string name="addressnew">NEW</string>
+    <string name="credited_amt">Credited amt</string>
+    <string name="debited_amt">Debited amt</string>
+
+    <string name="add_some_coins">Buy some coins</string>
+    <string name="to_create">to create your portfolio</string>
+    <string name="lets_buy">Let\'s Buy</string>
+
+    <!--***************************SOCIAL PROVIDER COMPONENTS END*************************-->
+
+
+    <!--Navigation start-->
+    <string name="menu_refer_title">Refer friends. Get paid.</string>
+    <string name="menu_verify_title">Verify Identity (KYC)</string>
+    <string name="menu_verify_update_kyc">Update KYC</string>
+    <string name="menu_verify_desc">Upload documents to complete the KYC process</string>
+    <string name="menu_earnings_title">Earn</string>
+    <string name="menu_earnings_desc">Earn annual yield on your holdings with us</string>
+    <string name="menu_trade_statement_title">Statement</string>
+    <string name="menu_trade_statement_desc">Request a trade statement sent by email</string>
+    <string name="menu_fees_desc">See all fees including membership, withdrawal, deposit</string>
+    <string name="menu_bank_ind">Bank &amp; UPI</string>
+    <string name="menu_bank">Bank</string>
+    <string name="add_bank_account">Add bank account</string>
+    <string name="menu_bank_desc">View &amp; edit your bank account details</string>
+    <string name="menu_notifications_title">Notifications</string>
+    <string name="menu_notifications_desc">Control all app notifications</string>
+    <string name="menu_privacy_title">Privacy</string>
+    <string name="menu_privacy_desc">Access or control your personal data</string>
+    <string name="menu_security_centre_title">Security Centre</string>
+    <string name="menu_security_centre_desc">Set security features like change PIN</string>
+    <string name="menu_support_centre_title">Support Centre</string>
+    <string name="menu_blog_title">Blog</string>
+    <string name="menu_support_centre_desc">Create a ticket and we will contact you</string>
+    <string name="menu_blog_desc">Get latest update about crypto world</string>
+    <string name="men_rate_us_title">Rate Us</string>
+    <string name="menu_about_title">About ZebPay</string>
+    <string name="history">History</string>
+    <string name="filled_orders">Filled Orders</string>
+    <string name="open_orders">Open Orders</string>
+    <string name="upload_back_side">Upload back side</string>
+    <string name="portfolio_value">Portfolio Value</string>
+    <string name="available_label">Available</string>
+    <string name="locked_label">Locked</string>
+    <string name="search_pair">Search Pair</string>
+    <string name="upload_front_side">Upload front side</string>
+    <string name="menu_bank_desc_ind">View &amp; edit your bank &amp; UPI details</string>
+    <string name="trade_tab">Trade</string>
+    <string name="lending_tab">Lending</string>
+
+    <string name="two_string_concatenate">%s %s</string>
+
+    <string name="format_percentage">%1$.2f%%</string>
+
+    <!--New UI-->
+    <string name="title_home">Home</string>
+    <!--    <string name="title_buy_sell">Buy/Sell</string>-->
+    <string name="quick_trade">Quick Trade</string>
+    <string name="title_lend">Lend</string>
+    <string name="title_portfolio">Portfolio</string>
+    <string name="coins">Coins</string>
+    <string name="other_coins">Other Coins</string>
+    <string name="_24hr_change"> 24hr Change</string>
+    <string name="title_price">Price</string>
+    <string name="title_qt_price">Price (%1$s)</string>
+
+    <string name="_24hr_gain">24 hr gain/loss</string>
+    <string name="approx_sign">≈</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!--Navigation end-->
+
+    <string name="email_pop_up_center_text">Kindly verify your Email address \n to buy/sell crypto currencies safely </string>
+    <string name="email_pop_up_button_text">Verify Email</string>
+    <string name="kyc_pop_up_button_text">Update KYC</string>
+    <string name="no_kyc_trade_message">Update your KYC \n to Instant Buy/Sell cryptocurrencies safely</string>
+    <string name="no_kyc_trade_message_send_receive">Update &amp; verify your KYC details \n to send/receive crypto currencies safely</string>
+
+
+    <string name="error_first_text">Aahhhh!</string>
+    <string name="error_second_text">Server is taking to much time to \nrespond. Ideally this shouldn\'t have \nhappened but again we don\'t live in a \nperfect world.</string>
+    <string name="error_third_text">Please try refreshing this page after \nsometime</string>
+    <string name="name_earning">View earnings</string>
+    <string name="earning_desc">Congratulations!\nYou have started earning!</string>
+    <string name="earning_details" tools:ignore="Typos">Earn upto %1$s</string>
+    <string name="earning_details2" tools:ignore="Typos">returns on your crypto holdings only on ZebPay.</string>
+    <string name="earning_popup_details" tools:ignore="Typos">Buy. Hold. Earn. Upto %1$s returns on your crypto holdings, only on ZebPay.</string>
+    <string name="earning_faq">FAQ\'s</string>
+    <string name="earning_know_more"><u>Know More</u></string>
+
+    <!-- earning Screen -->
+    <string name="title_earning_screen">Earn</string>
+
+    <!-- Eaning FAQs Data -->
+    <string name="earning_faq_1">When are earnings deposited into my account and how will they appear?</string>
+    <string name="earning_faq_ans_1">Earnings would be credited in the trading wallet by 1st week of the next month.</string>
+    <string name="earning_faq_2">Can I trade with my crypto or is it locked to earn returns?</string>
+    <string name="earning_faq_ans_2">Customers can trade with the crypto in the trading wallet, there are no restrictions on buy/sell.</string>
+    <string name="earning_faq_3">How is this different from lending?</string>
+    <string name="earning_faq_ans_3">The major difference between these 2 features is that unlike in lending, the coins/ token in the Earn are available to trade. In the lending option they are available only on the maturity of the term they were locked for.</string>
+
+    <!-- Earning List -->
+    <string name="earning_list_header_1">Coins</string>
+    <string name="earning_list_header_2">Annual yield</string>
+    <string name="earning_list_header_3_1">Lifetime earnings</string>
+    <string name="earning_list_header_3_2">Lastmonth earnings</string>
+    <string name="earning_zero_buy">Buy</string>
+    <string name="no_earning_label">You don\'t have earnings.</string>
+
+    <!-- Newer Tokens -->
+    <string name="is_an_xpress_token">%1$s is an Xpress listing token</string>
+    <string name="token_xpress_txt">Identify Xpress listing tokens with a dotted circle</string>
+    <string name="you_can_txt">You Can</string>
+    <string name="you_can_buy">Buy</string>
+    <string name="you_can_sell">Sell</string>
+
+    <string name="you_cant_txt">You Can\'t</string>
+    <string name="you_cant_send">Send</string>
+    <string name="you_cant_receive">Receive</string>
+    <string name="btn_read_more_txt">Read More</string>
+    <string name="btn_buy_txt">Trade</string>
+    <string name="txt_your_addresses">Your addresses</string>
+
+    <string name="update_app_desc">Update your app for the best possible ZebPay experience</string>
+    <string name="update_app_title">We\'ve got exciting things coming!</string>
+    <string name="search">Search</string>
+    <string name="activity_select_currency_no_results_to_display">No results to display</string>
+
+    <string name="header_sort_coins_watchlist">Favourites</string>
+    <string name="header_sort_coins_trending">Trending</string>
+    <string name="header_sort_coins_new">New</string>
+
+    <string name="quick_trade_dialog_send">Send</string>
+    <string name="quick_trade_dialog_receive">Receive</string>
+    <string name="wallet">Wallet</string>
+    <string name="exchange">Exchange</string>
+
+    <!-- referral screen start -->
+    <string name="title_referral_benefits">Refer &amp; Earn</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="earnings">Earnings</string>
+    <string name="successful_referrals">Successful Referrals</string>
+    <string name="referral_credit">Referral Credit\n(max  %1$s)</string>
+
+    <string name="you_will_not_be_eligible_to_receive_any_more_awards">You will not be eligible to receive any more awards</string>
+    <string name="okay_understood">okay understood</string>
+    <string name="referral_limit">Your referral limit of %1$s %2$s has been crossed</string>
+    <!-- referral screen end -->
+
+    <string name="self_transfer">Self transfer (No TDS Deduction)</string>
+    <string name="tds_title">TDS</string>
+    <string name="note">Note</string>
+    <string name="i_want_to_send">I want to send</string>
+    <string name="to_address">To Address</string>
+    <string name="total_label">Total</string>
+    <string name="deprecated_address">This address is deprecated. While deposits to this may work now, but in future deposit to this address won\'t be credited. It\'s strongly advised to stop receiving funds on this address immediately.</string>
+
+    <string name="quick_trade_home">Quick Trade Home</string>
+    <string name="quick_trade_history">Quick Trade History</string>
+    <string name="quick_trade_view_chart">QuickTrade Chart</string>
+    <string name="quick_trade_add_to_watchlist">Add to Favourites</string>
+    <string name="quick_trade_remove_from_watchlist">Remove from Favourites</string>
+    <string name="zebpay_xpress_listing">ZebPay Xpress Listing</string>
+    <string name="action_login_text">Sign Up | Login</string>
+    <string name="no_pairs_found">No Pairs Found!</string>
+    <string name="search_something_else">No pairs found for this coin try searching something else</string>
+    <string name="no_coin_found">No Coins Found!</string>
+    <string name="coin_search_something_else">No coins found try searching something else</string>
+    <string name="no_quote_currency_found">No Quote Currency Found!</string>
+    <string name="quote_currency_search_something_else">No quote currency found try searching something else</string>
+    <string name="deposit">deposit</string>
+
+
+    <!-- Portfolio revamp -->
+
+    <string name="get_started_zebpay">Get Started With ZebPay!</string>
+    <string name="signup_login_portfolio">Sign up or login to view your portfolio</string>
+    <string name="complete_kyc">Complete your KYC</string>
+    <string name="complete_kyc_subheading">To start trading without any restrictions, please\ncomplete your KYC verification.</string>
+    <string name="no_bank_account">No Bank Account Found</string>
+    <string name="no_bank_account_subheading">Please add your bank account to enable\nfiat transactions.</string>
+    <string name="kyc_rejected">KYC Verification Rejected!</string>
+    <string name="kyc_rejected_subheading">Your KYC verification has been rejected,\nkindly re-attempt your KYC. </string>
+    <string name="start_kyc_verification">start kyc verification</string>
+    <string name="reattempt_kyc">Re-attempt kyc verification</string>
+    <string name="add_bank">Add Bank</string>
+    <string name="partial_kyc">KYC Partially Completed</string>
+    <string name="partial_kyc_subheading">Continue to complete your KYC verification, to\nstart trading without any restrictions.</string>
+    <string name="verified_kyc_rejected">KYC Verification Rejected!</string>
+    <string name="verified_kyc_rejected_subheading">Your KYC verification  has been rejected due to\nsuspicious activity , kindly re-attempt your
+        KYC to\naccess your portfolio &amp; fiat options.</string>
+    <string name="under_verification">KYC &amp; Bank Under Verification</string>
+    <string name="under_verification_subheading">Your KYC &amp; bank are currently under verification,\nwe will process them as quickly as possible
+        .</string>
+    <string name="explore_quicktrade">Explore Quicktrade</string>
+    <string name="bank_verification">Bank Under Verification</string>
+    <string name="bank_verification_subheading">Your Bank is currently under verification, we will\nprocess your bank as quickly as possible.
+    </string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Portfolio revamp end -->
+</resources>

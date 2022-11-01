@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#d5d4d4d4</color>
+    <color name="zebpay_gradient_light_blue">#5D7BFE</color>
+    <color name="zebpay_gradient_dark_blue">#0974FF</color>
+
+    <!--Blue Theme-->
+    <!-- ========= 3.0 rebranding colors 18-feb-2019 =======-->
+    <color name="zebpay_dark_blue">#0659d7</color>
+    <color name="zebpay_main_blue">#2072EF</color>
+    <color name="zebpay_light_blue">#73abff</color>
+    <color name="zebpay_base_grey">#1e2128</color>
+    <color name="address_tooltip">#1e2128</color>
+    <color name="zebpay_medium_grey">#8c9db2</color>
+    <color name="zebpay_text_desc">#6c7889</color>
+    <color name="zebpay_shadow">#e6ecf7</color>
+    <color name="zebpay_grey_light">#eff4fa</color>
+    <color name="zebpay_background">#f0f6ff</color>
+    <color name="zebpay_action_background">#f8fbff</color>
+    <color name="zebpay_action_shadow">#dbe7f7</color>
+    <color name="dark_grey">#34345A</color>
+    <color name="text_crypto_history">#2A2D32</color>
+
+    <color name="divider_history_sheet">#E9EFF6</color>
+    <color name="history_sheet_text">#181837</color>
+    <color name="zebpay_light_grey">#8e9db2</color>
+    <color name="zebpay_extra_light_grey">#dce4ed</color>
+    <color name="zebpay_dark_green">#31ba27</color>
+    <color name="zebpay_light_green">#eafae9</color>
+    <color name="zebpay_light_red">#fff1ed</color>
+    <color name="zebpay_yellow">#FFF0BA</color>
+
+    <color name="zebpay_orange">#f3b338</color>
+
+    <color name="zebpay_orange_new">#ff871d</color>
+    <color name="zebpay_orange_fees">#ea9a00</color>
+
+    <color name="zeb_transparent_4">#0A338FFF</color>  <!-- 4% transparency-->
+    <color name="zebpay_bright_blue">#338FFF</color>
+    <color name="zebpay_light_blue_01">#E9EFF6</color>
+    <color name="zeb_solid_dark_green">#31826F</color>
+    <color name="zeb_bg_light_blue">#33C0C0EE</color>
+    <color name="zeb_bg_blue">#33338FFF</color>
+    <color name="zeb_solid_grey">#C2C2DD</color>
+    <color name="zeb_solid_dark_red">#BF5555</color>
+
+    <color name="transparent">#00000000</color>
+    <!-- dots inactive colors -->
+    <color name="alert">#CC0000</color>
+    <color name="confirm">#FF8800</color>
+    <color name="info">#669900</color>
+    <color name="zebpay_text_font">#4f5868</color>
+
+
+    <color name="switch_background">@color/white</color>
+    <color name="switch_stroke">@color/zebpay_extra_light_grey</color>
+    <color name="switch_thumb">@color/zebpay_main_blue</color>
+
+    <color name="switch_text_selected">@color/white</color>
+    <color name="switch_text_unselected">@color/zebpay_medium_grey</color>`
+    <color name="zeb_solid_dark_grey">#34345A</color>
+
+    <!--chart colors -->
+
+
+    <color name="browser_actions_bg_grey">#F5F5F5</color>
+    <color name="com_facebook_blue">#3B5998</color>
+
+    <color name="pie_chart_first">#2474EC</color>
+    <color name="pie_chart_second">#EB605A</color>
+    <color name="pie_chart_third">#4EC040</color>
+    <color name="pie_chart_four">#FFC000</color>
+    <color name="pie_chart_five">#C7D0DC</color>
+    <color name="color_black">#000</color>
+    <color name="color_warn_text">#EC6262</color>
+
+    <!--Referral color -->
+
+    <color name="grey">#6B6B6B</color>
+    <color name="zebpay_solid_dark">#181837</color>
+    <color name="zebpay_solid_light_blue">#E9EFF6</color>
+    <color name="zebpay_grey">#400C0C24</color>
+    <color name="zebpay_dark_red">#FB663E</color>
+    <color name="zeb_solid_green">#1ECAA2</color>
+    <color name="zeb_solid_red">#EA6161</color>
+    <color name="zebpay_yellow_new">#F9C35C</color>
+    <color name="zebpay_solid_grey">#E1E3E6</color>
+    <color name="zebpay_solid_blue">#222245</color>
+</resources>

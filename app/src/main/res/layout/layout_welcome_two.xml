@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/iv_girl_screen_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginLeft="152dp"
+        app:layout_constraintBottom_toTopOf="@+id/iv_bottom_screen_2"
+        app:layout_constraintStart_toStartOf="@+id/iv_man_screen_2"
+        app:layout_constraintTop_toTopOf="@+id/iv_mobile_screen_2"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_screen_2_4"/>
+
+    <ImageView
+        android:id="@+id/iv_bottom_screen_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/ic_screen_2_1"/>
+
+    <ImageView
+        android:id="@+id/iv_plant_screen_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_bottom_screen_2"
+        app:layout_constraintEnd_toEndOf="@+id/iv_bottom_screen_2"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/iv_bottom_screen_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/ic_screen_2_2"/>
+
+
+    <ImageView
+        android:id="@+id/iv_mobile_screen_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_35sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_bottom_screen_2"
+        app:layout_constraintEnd_toEndOf="@+id/iv_man_screen_2"
+        app:layout_constraintHorizontal_bias="1.1"
+        app:layout_constraintStart_toStartOf="@+id/iv_man_screen_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_screen_2_5"/>
+
+    <ImageView
+        android:id="@+id/iv_man_screen_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_bottom_screen_2"
+        app:layout_constraintEnd_toEndOf="@+id/iv_bottom_screen_2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_plant_screen_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_screen_2_3"/>
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvWlcTitle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:includeFontPadding="false"-->
+    <!--android:text="@string/title_wlc_one"-->
+    <!--android:textColor="@color/zebpay_base_grey"-->
+    <!--android:textSize="@dimen/_17ssp"-->
+    <!--android:layout_marginTop="@dimen/_50sdp"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:fontFamily="@font/open_sans_semibold"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"/>-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_bottom_screen_2"
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:text="@string/title_wlc_two"
+            android:textColor="@color/zebpay_base_grey"
+            android:textSize="@dimen/_21ssp"
+            app:fontFamily="@font/open_sans_semibold"/>
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
