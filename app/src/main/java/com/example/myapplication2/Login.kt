@@ -24,7 +24,7 @@ const val BASE_URL_Login = "https://live.zebapi.com/api/v1/"
 
     var countryNameList = ArrayList<String>()
      var countryCodeList = ArrayList<String>()
-     var isoCode = ArrayList<CountryDetail>()
+     var isoCode = ArrayList<CountryDetailX>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)

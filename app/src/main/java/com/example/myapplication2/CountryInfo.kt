@@ -5,7 +5,7 @@ data class CountryInfo(
     val blockEndTime: String,
     val blockReason: String,
     val blocked: Boolean,
-    val countryDetails: List<CountryDetail>,
+    val countryDetails: List<CountryDetailX>,
     val err: String,
     val nonce: String,
     val requestid: String,
