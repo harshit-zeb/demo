@@ -2,6 +2,7 @@ package com.example.myapplication2
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -11,18 +12,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.view.*
+import org.json.JSONObject
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
 
 const val BASE_URL_Country = "https://live.zebpay.co/api/v1/configuration/"
-const val BASE_URL_Login = "https://www.zebpay.co/api/v1/"
+const val BASE_URL_Login = "https://live.zebapi.com/api/v1/"
 
  class Login : AppCompatActivity() {
 
     var countryNameList = ArrayList<String>()
      var countryCodeList = ArrayList<String>()
-
+     var isoCode = ArrayList<CountryDetail>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -56,10 +58,28 @@ const val BASE_URL_Login = "https://www.zebpay.co/api/v1/"
             startActivity(intent)
         }
         loginbutton.setOnClickListener{
+            Log.d("Code", isoCode.find { it.Name == spinner.selectedItem.toString()}!!.TwoLetterIsoCode.toString().lowercase())
+            Log.d("Num" , phnumtext.text.toString().trim())
             val retrofitBuilder = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL_Login).build().create(ApiInterface2::class.java)
-            val retrofitData = retrofitBuilder.userLogin(spinner.selectedItem.toString(), phnumtext.text.toString().trim().toBigInteger(),"ed42efd6-ba9e-4cfe-99a8-3531b6123148","46b341e4-ba8a-49db-9915-ea39c8281a65")
+                .baseUrl(BASE_URL_Login).build().create(ApiInterfaceLogin::class.java)
+            var headers = HashMap<String, String?>()
+            headers["apikey"] = null
+            headers["session"] =null
+            headers["apptoken"] = "D6E8C93D-FC2B-45A1-AF17-BC3E6F919934"
+            headers["version"]="0"
+            headers["nonce"] = "637305869802650000"
+            headers["phonehash"] = "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc"
+            headers["timestamp"] = System.currentTimeMillis().toString()
+            headers["reqid"]="4eeb96b8-b09a-4629-9869-fccc14629d08"
+
+            var paramObj = JSONObject()
+            paramObj.put("ivrCapable","true")
+            paramObj.put("otpProvider","2")
+            paramObj.put("mobileno",phnumtext.text.toString().trim().toBigInteger())
+            paramObj.put("countrycode",isoCode.find { it.Name == spinner.selectedItem.toString()}!!.ThreeLetterIsoCode.toString())
+            Log.d("obj",paramObj.toString())
+            val retrofitData = retrofitBuilder.userLogin( headers, paramObj)
 
             retrofitData.enqueue(object : Callback<UserLoginResponse?>{
                 override fun onResponse(
@@ -68,7 +88,8 @@ const val BASE_URL_Login = "https://www.zebpay.co/api/v1/"
                 ) {
                     try {
                         val responseBody = response.body()
-                        if(responseBody!!.statusCode.equals("200") ){
+                        Log.d("response",responseBody.toString())
+                        if(responseBody!!.VerificationIntId.isNotEmpty()){
                             Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG)
                             val intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
@@ -102,6 +123,7 @@ const val BASE_URL_Login = "https://www.zebpay.co/api/v1/"
                      val responseBody = response.body()
 
                      for(country in responseBody!!.countryDetails){
+                         isoCode.add(country)
                          countryNameList.add(country.Name)
                          countryCodeList.add("+" +country.ISDCode)
                      }
