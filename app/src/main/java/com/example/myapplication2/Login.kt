@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_login.view.*
 import org.json.JSONObject
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 const val BASE_URL_Country = "https://live.zebpay.co/api/v1/configuration/"
@@ -58,28 +59,11 @@ const val BASE_URL_Login = "https://live.zebapi.com/api/v1/"
             startActivity(intent)
         }
         loginbutton.setOnClickListener{
-            Log.d("Code", isoCode.find { it.Name == spinner.selectedItem.toString()}!!.TwoLetterIsoCode.toString().lowercase())
-            Log.d("Num" , phnumtext.text.toString().trim())
             val retrofitBuilder = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_Login).build().create(ApiInterfaceLogin::class.java)
-            var headers = HashMap<String, String?>()
-            headers["apikey"] = null
-            headers["session"] =null
-            headers["apptoken"] = "D6E8C93D-FC2B-45A1-AF17-BC3E6F919934"
-            headers["version"]="0"
-            headers["nonce"] = "637305869802650000"
-            headers["phonehash"] = "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc"
-            headers["timestamp"] = System.currentTimeMillis().toString()
-            headers["reqid"]="4eeb96b8-b09a-4629-9869-fccc14629d08"
 
-            var paramObj = JSONObject()
-            paramObj.put("ivrCapable","true")
-            paramObj.put("otpProvider","2")
-            paramObj.put("mobileno",phnumtext.text.toString().trim().toBigInteger())
-            paramObj.put("countrycode",isoCode.find { it.Name == spinner.selectedItem.toString()}!!.ThreeLetterIsoCode.toString())
-            Log.d("obj",paramObj.toString())
-            val retrofitData = retrofitBuilder.userLogin( headers, paramObj)
+            val retrofitData = retrofitBuilder.userLogin( System.currentTimeMillis().toString(), LoginParams("2","true",phnumtext.text.toString().trim(),isoCode.find { it.Name == spinner.selectedItem.toString()}!!.ThreeLetterIsoCode.toString()))
 
             retrofitData.enqueue(object : Callback<UserLoginResponse?>{
                 override fun onResponse(
@@ -87,14 +71,15 @@ const val BASE_URL_Login = "https://live.zebapi.com/api/v1/"
                     response: Response<UserLoginResponse?>
                 ) {
                     try {
-                        val responseBody = response.body()
+                        val responseBody:UserLoginResponse? = response.body()
                         Log.d("response",responseBody.toString())
-                        if(responseBody!!.VerificationIntId.isNotEmpty()){
-                            Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG)
+                        if(responseBody!!.err == "Success"){
+                            Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
                             val intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
                         }else{
-                            Toast.makeText(applicationContext,"Invalid Credentials",Toast.LENGTH_LONG)
+                            Toast.makeText(applicationContext,"Invalid Credentials",Toast.LENGTH_LONG).show()
+                            phnumtext.error ="Number not registered"
                         }
                     }catch (ex: Exception){
                         Toast.makeText(applicationContext,"Login Error",Toast.LENGTH_LONG)

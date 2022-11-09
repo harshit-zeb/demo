@@ -2,13 +2,7 @@ package com.example.myapplication2
 
 import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.HeaderMap
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 import java.math.BigInteger
 
 interface ApiInterface {
@@ -35,12 +29,19 @@ interface ApiInterface2 {
     )
 }
 
-var timeStamp = System.currentTimeMillis()
-
 interface ApiInterfaceLogin{
 
+    @Headers(
+        "apikey: null",
+        "session: null",
+        "apptoken: D6E8C93D-FC2B-45A1-AF17-BC3E6F919934",
+        "version: 0",
+        "nonce: 637305869802650000",
+        "phonehash: ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc",
+        "reqid: 4eeb96b8-b09a-4629-9869-fccc14629d08"
+    )
     @POST("getaccount")
-    fun userLogin(@HeaderMap headers: Map<String, String?>,@Body body: JSONObject):Call<UserLoginResponse>
+    fun userLogin(@Header("timestamp") header: String, @Body body: LoginParams):Call<UserLoginResponse>
 }
 
 //https://live.zebpay.co/api/v1/registerdevice
