@@ -25,6 +25,7 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="android:fontFamily">@font/open_sans_semibold</item>
     </style>
+
     <style name="passwordButtonStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/_50sdp</item>
@@ -56,5 +57,19 @@
         <item name="colorControlActivated">@color/zebpay_main_blue</item>
         <item name="colorControlHighlight">@color/zebpay_light_grey</item>
     </style>
+
+
+    <style name="ToolBarMaterialStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:background">@color/zebpay_main_blue</item>
+        <item name="android:titleTextAppearance">@style/RobotoBoldTextAppearance</item>
+        <item name="titleTextAppearance">@style/RobotoBoldTextAppearance</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
 
 </resources>

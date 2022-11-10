@@ -1,6 +1,8 @@
 package com.example.myapplication2
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,7 +21,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 const val BASE_URL_Country = "https://live.zebpay.co/api/v1/configuration/"
-const val BASE_URL_Login = "https://live.zebapi.com/api/v1/"
+const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
 
  class Login : AppCompatActivity() {
 
@@ -29,6 +31,7 @@ const val BASE_URL_Login = "https://live.zebapi.com/api/v1/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#338FFF")))
         countryNameList.add("India")
         countryCodeList.add("+91")
         loginbutton.isEnabled = false
@@ -75,7 +78,8 @@ const val BASE_URL_Login = "https://live.zebapi.com/api/v1/"
                         Log.d("response",responseBody.toString())
                         if(responseBody!!.err == "Success"){
                             Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
-                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            val intent = Intent(applicationContext, Verifyotp::class.java)
+                            finish()
                             startActivity(intent)
                         }else{
                             Toast.makeText(applicationContext,"Invalid Credentials",Toast.LENGTH_LONG).show()
