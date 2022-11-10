@@ -87,8 +87,8 @@
         android:layout_gravity="center"
         android:layout_weight="0"
         android:background="@drawable/btn_blue_rounded_drawable"
-        android:backgroundTint="#2172EE"
         android:gravity="center"
+        android:textColor="@color/white"
         android:layout_marginBottom="4pt"
         android:text="Login" />
 

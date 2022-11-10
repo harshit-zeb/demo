@@ -1,5 +1,6 @@
 package com.example.myapplication2
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.myapplication.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.view.*
@@ -31,10 +33,16 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#338FFF")))
+        val sharedPref = this@Login?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val defaultValue = "False"
+        val userStatus= sharedPref.getString("User", defaultValue)
+        if(userStatus == "True"){
+            val intent = Intent(applicationContext, EnterPin::class.java)
+            startActivity(intent)
+        }
         countryNameList.add("India")
         countryCodeList.add("+91")
-        loginbutton.isEnabled = false
+        loginbutton.isVisible = false
         loginbutton.isClickable=false
         getMyData()
        spinner.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,countryNameList)
@@ -53,7 +61,7 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
             }
         }
         checkBox.setOnCheckedChangeListener { _, _ ->
-            loginbutton.isEnabled = checkBox.isChecked
+            loginbutton.isVisible = checkBox.isChecked
             loginbutton.isClickable= checkBox.isChecked
         }
 
@@ -77,6 +85,11 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
                         val responseBody:UserLoginResponse? = response.body()
                         Log.d("response",responseBody.toString())
                         if(responseBody!!.err == "Success"){
+                            val sharedPref = this@Login?.getPreferences(Context.MODE_PRIVATE) ?: return
+                            with(sharedPref.edit()){
+                                putString("User", "True")
+                                apply()
+                            }
                             Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
                             val intent = Intent(applicationContext, Verifyotp::class.java)
                             finish()

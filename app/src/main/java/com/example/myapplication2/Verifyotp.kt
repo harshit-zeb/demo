@@ -20,7 +20,6 @@ class Verifyotp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verifyotp)
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#338FFF")))
         //GenericTextWatcher here works only for moving to next EditText when a number is entered
 //first parameter is the current EditText and second parameter is next EditText
         otp_edit_box1.addTextChangedListener(GenericTextWatcher(otp_edit_box1, otp_edit_box2))
@@ -42,7 +41,7 @@ class Verifyotp : AppCompatActivity() {
 
         verify_otp_btn.setOnClickListener{
             if(otpText == "840429") {
-                var intent = Intent(applicationContext, MainActivity::class.java)
+                var intent = Intent(applicationContext, EnterPin::class.java)
                 finish()
                 startActivity(intent)
             }
