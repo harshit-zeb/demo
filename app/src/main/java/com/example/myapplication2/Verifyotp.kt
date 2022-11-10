@@ -20,8 +20,7 @@ class Verifyotp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verifyotp)
-        //GenericTextWatcher here works only for moving to next EditText when a number is entered
-//first parameter is the current EditText and second parameter is next EditText
+
         otp_edit_box1.addTextChangedListener(GenericTextWatcher(otp_edit_box1, otp_edit_box2))
         otp_edit_box2.addTextChangedListener(GenericTextWatcher(otp_edit_box2, otp_edit_box3))
         otp_edit_box3.addTextChangedListener(GenericTextWatcher(otp_edit_box3, otp_edit_box4))
@@ -29,14 +28,17 @@ class Verifyotp : AppCompatActivity() {
         otp_edit_box5.addTextChangedListener(GenericTextWatcher(otp_edit_box5, otp_edit_box6))
         otp_edit_box6.addTextChangedListener(GenericTextWatcher(otp_edit_box6, null))
 
-//GenericKeyEvent here works for deleting the element and to switch back to previous EditText
-//first parameter is the current EditText and second parameter is previous EditText
+
+
         otp_edit_box1.setOnKeyListener(GenericKeyEvent(otp_edit_box1, null))
         otp_edit_box2.setOnKeyListener(GenericKeyEvent(otp_edit_box2, otp_edit_box1))
         otp_edit_box3.setOnKeyListener(GenericKeyEvent(otp_edit_box3, otp_edit_box2))
         otp_edit_box4.setOnKeyListener(GenericKeyEvent(otp_edit_box4,otp_edit_box3))
         otp_edit_box5.setOnKeyListener(GenericKeyEvent(otp_edit_box5,otp_edit_box4))
         otp_edit_box6.setOnKeyListener(GenericKeyEvent(otp_edit_box6,otp_edit_box5))
+        verify_otp_btn.isEnabled = false
+        verify_otp_btn.isClickable = false
+
 
 
         verify_otp_btn.setOnClickListener{
@@ -75,6 +77,7 @@ class Verifyotp : AppCompatActivity() {
         override fun afterTextChanged(editable: Editable) { // TODO Auto-generated method stub
             val text = editable.toString()
             otpText+=text
+
             when (currentView.id) {
                 R.id.otp_edit_box1 -> if (text.length == 1) nextView!!.requestFocus()
                 R.id.otp_edit_box2 -> if (text.length == 1) nextView!!.requestFocus()

@@ -42,7 +42,7 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
         }
         countryNameList.add("India")
         countryCodeList.add("+91")
-        loginbutton.isVisible = false
+        loginbutton.isEnabled = false
         loginbutton.isClickable=false
         getMyData()
        spinner.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,countryNameList)
@@ -61,7 +61,7 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
             }
         }
         checkBox.setOnCheckedChangeListener { _, _ ->
-            loginbutton.isVisible = checkBox.isChecked
+            loginbutton.isEnabled = checkBox.isChecked
             loginbutton.isClickable= checkBox.isChecked
         }
 

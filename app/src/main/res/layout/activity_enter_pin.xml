@@ -90,7 +90,7 @@
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:background="@color/zebpay_main_blue"
+            android:background="@drawable/btn_blue_rounded_drawable"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Verify"
