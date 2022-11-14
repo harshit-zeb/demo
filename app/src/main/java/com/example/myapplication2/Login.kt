@@ -30,6 +30,7 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
     var countryNameList = ArrayList<String>()
      var countryCodeList = ArrayList<String>()
      var isoCode = ArrayList<CountryDetailX>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -88,11 +89,17 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
                             val sharedPref = this@Login?.getPreferences(Context.MODE_PRIVATE) ?: return
                             with(sharedPref.edit()){
                                 putString("User", "True")
-                                apply()
+                                putString("verificationIntId",responseBody!!.VerificationIntId )
+                                putString("verificationId", responseBody!!.VerificationRequestId)
+                                putString("loginTimestamp", responseBody!!.timestamp)
+                                commit()
                             }
                             Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
                             val intent = Intent(applicationContext, Verifyotp::class.java)
-                            finish()
+                            intent.putExtra("verificationIntId", responseBody!!.VerificationIntId)
+                            intent.putExtra("verificationId", responseBody!!.VerificationRequestId)
+                            intent.putExtra("loginTimestamp", responseBody!!.timestamp)
+
                             startActivity(intent)
                         }else{
                             Toast.makeText(applicationContext,"Invalid Credentials",Toast.LENGTH_LONG).show()

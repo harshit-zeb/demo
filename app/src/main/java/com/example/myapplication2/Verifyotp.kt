@@ -1,5 +1,6 @@
 package com.example.myapplication2
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,14 +8,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.example.myapplication.MainActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_verifyotp.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+
 
 var otpText:String = ""
+const val BASE_URL_Otp = "https://live.zebpay.co/api/v1/"
 class Verifyotp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,17 +47,72 @@ class Verifyotp : AppCompatActivity() {
         otp_edit_box4.setOnKeyListener(GenericKeyEvent(otp_edit_box4,otp_edit_box3))
         otp_edit_box5.setOnKeyListener(GenericKeyEvent(otp_edit_box5,otp_edit_box4))
         otp_edit_box6.setOnKeyListener(GenericKeyEvent(otp_edit_box6,otp_edit_box5))
-        verify_otp_btn.isEnabled = false
-        verify_otp_btn.isClickable = false
 
+        val sharedPref = this@Verifyotp?.getPreferences(Context.MODE_PRIVATE) ?: return
+       // val verificationIntId= sharedPref.getString("verificationIntId","")
+        //val verificationId= sharedPref.getString("verificationId","")
+      //  val loginTimestamp= sharedPref.getString("loginTimestamp","")
+         var verificationIntId : String? = ""
+         var verificationId :String? = ""
+         var loginTimestamp :String? = ""
+        var bundle: Bundle = intent.extras!!
+        if(bundle != null){
+             verificationIntId= bundle.getString("verificationIntId")
+            verificationId= bundle.getString("verificationId")
+            loginTimestamp= bundle.getString("loginTimestamp")
+        }
+
+        Log.d("verificationIntId" , verificationIntId!!)
+        Log.d("verificationId" , verificationId!!)
+        Log.d("loginTimestamp" , loginTimestamp!!)
+        Log.d("currentTime" , System.currentTimeMillis().toString())
+        Log.d("loginTimestampDiff" ,(System.currentTimeMillis() - loginTimestamp!!.toLong()).toString())
 
 
         verify_otp_btn.setOnClickListener{
-            if(otpText == "840429") {
-                var intent = Intent(applicationContext, EnterPin::class.java)
-                finish()
-                startActivity(intent)
-            }
+
+            val retrofitBuilder = Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BASE_URL_Otp).build().create(ApiInterfaceOtp::class.java)
+
+            val retrofitData = retrofitBuilder.userOtp( (loginTimestamp!!.toLong()-System.currentTimeMillis()).toString(), OtpParams(verificationIntId!!,verificationId!!,"840429 is your Zebpay verification code", "840429",""))
+
+            retrofitData.enqueue(object : Callback<UserOtpResponse?> {
+                override fun onResponse(
+                    call: Call<UserOtpResponse?>,
+                    response: Response<UserOtpResponse?>
+                ) {
+                    try {
+                        val responseBody:UserOtpResponse? = response.body()
+                        Log.d("response",responseBody.toString())
+                        if(responseBody!!.err == "Success"){
+                            Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
+                            val sharedPref = this@Verifyotp?.getPreferences(Context.MODE_PRIVATE) ?: return
+                            with(sharedPref.edit()){
+                                putString("verificationCompleteToken",  responseBody!!.VerificationCompleteToken)
+                                putString("otpTimestamp",  responseBody!!.timestamp)
+                                putString("otpTimestamp",  responseBody!!.timestamp)
+                                apply()
+                            }
+                            val intent = Intent(applicationContext, EnterPin::class.java)
+                            intent.putExtra("verificationCompleteToken",  responseBody!!.VerificationCompleteToken)
+                            intent.putExtra("otpTimestamp",  responseBody!!.timestamp)
+                            intent.putExtra("verificationIntId", verificationId!!)
+                            intent.putExtra("verificationId",  verificationId!!)
+                            startActivity(intent)
+                        }else{
+                            Toast.makeText(applicationContext,"Invalid Otp",Toast.LENGTH_LONG).show()
+                        }
+                    }catch (ex: Exception){
+                        Toast.makeText(applicationContext,"Login Error",Toast.LENGTH_LONG)
+                    }
+                }
+
+                override fun onFailure(call: Call<UserOtpResponse?>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
 //            }else{
 //                Toast.makeText(applicationContext, "Wrong OTP" , Toast.LENGTH_LONG).show()
 //                otp_edit_box1.setBackgroundResource(R.drawable.edittext_curve_bg_error)
