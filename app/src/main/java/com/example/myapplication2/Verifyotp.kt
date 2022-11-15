@@ -2,9 +2,6 @@ package com.example.myapplication2
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,15 +10,19 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import com.example.myapplication.MainActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_verifyotp.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import zebpay.application.utils.Base64Util
+import java.nio.charset.StandardCharsets
+import java.security.InvalidKeyException
+import java.security.NoSuchAlgorithmException
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 
 
 var otpText:String = ""
@@ -55,27 +56,54 @@ class Verifyotp : AppCompatActivity() {
          var verificationIntId : String? = ""
          var verificationId :String? = ""
          var loginTimestamp :String? = ""
+         var sessionToken :String? = ""
+         var apiKey :String? = ""
+         var apiSecret :String? = ""
         var bundle: Bundle = intent.extras!!
         if(bundle != null){
              verificationIntId= bundle.getString("verificationIntId")
             verificationId= bundle.getString("verificationId")
             loginTimestamp= bundle.getString("loginTimestamp")
+            sessionToken= bundle.getString("session")
+            apiKey= bundle.getString("apiKey")
+            apiSecret= bundle.getString("apiSecret")
         }
 
         Log.d("verificationIntId" , verificationIntId!!)
         Log.d("verificationId" , verificationId!!)
         Log.d("loginTimestamp" , loginTimestamp!!)
-        Log.d("currentTime" , System.currentTimeMillis().toString())
-        Log.d("loginTimestampDiff" ,(System.currentTimeMillis() - loginTimestamp!!.toLong()).toString())
+        Log.d("apiSecret" , apiSecret!!)
+        Log.d("sessionToken" , sessionToken!!)
+        Log.d("loginTimestampDiff" ,(getCurrentTimeTicks()!!.toLong()- loginTimestamp!!.toLong()).toString())
 
 
         verify_otp_btn.setOnClickListener{
-
+        Log.d("otp", otpText)
+            Log.d("loginTimestampDiff" ,((621355968000000000L + System.currentTimeMillis() * 10000)- loginTimestamp!!.toLong()).toString())
             val retrofitBuilder = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_Otp).build().create(ApiInterfaceOtp::class.java)
+                var headers = mutableMapOf<String, String>()
+            headers["timestamp"] = (2*(621355968000000000L + (System.currentTimeMillis() * 10000))- loginTimestamp!!.toLong()).toString()
+            headers["session"] = sessionToken!!
+            headers["apikey"] = apiKey!!
 
-            val retrofitData = retrofitBuilder.userOtp( (loginTimestamp!!.toLong()-System.currentTimeMillis()).toString(), OtpParams(verificationIntId!!,verificationId!!,"840429 is your Zebpay verification code", "840429",""))
+            val headersMessage: String? =
+                getHeadersForPayloadGeneration(
+                    "0CB88193-1328-4AFA-B013-5CBF46D81AD0",
+                    "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc", apiKey!!, sessionToken!!,
+                    "e7000b3f-b963-4fba-b126-a974d2b196dd"
+                )
+            val payloadMessage: String? =
+                    getMessageForPayload(
+                        ((621355968000000000L + (System.currentTimeMillis() * 10000))- loginTimestamp!!.toLong()).toString(),
+                    "https://live.zebpay.co/api/v1/verifyaccountcode", "dummy=1", headersMessage!!
+                )
+            val payLoad: String? =  encodeParamsToSecret(apiSecret!!, payloadMessage!!)
+            val SIGNATURE = "signature"
+            Log.d("payload", payLoad!!)
+            headers[SIGNATURE] = payLoad!!
+            val retrofitData = retrofitBuilder.userOtp( headers, OtpParams(verificationIntId!!,verificationId!!,"840429 is your Zebpay verification code", "840429",""))
 
             retrofitData.enqueue(object : Callback<UserOtpResponse?> {
                 override fun onResponse(
@@ -171,4 +199,64 @@ class Verifyotp : AppCompatActivity() {
         }
 
     }
+
+
+    private fun getHeadersForPayloadGeneration(
+        appToken: String,
+        phoneHash: String,
+        apiKey: String,
+        session: String,
+        reqId: String
+    ): String? {
+        var headersInpayLoad = ""
+        headersInpayLoad += "apptoken:$appToken"
+        headersInpayLoad += "phoneHash:$phoneHash"
+        headersInpayLoad += "apikey:$apiKey"
+        headersInpayLoad += "session:$session"
+        headersInpayLoad += "reqid:$reqId"
+        return headersInpayLoad
+    }
+
+    private fun getMessageForPayload(
+        date: String,
+        uri: String,
+        parameters: String,
+        headers: String
+    ): String? {
+        return """
+            POST
+            $date
+            $uri
+            $parameters
+            $headers
+            """.trimIndent()
+    }
+
+    fun encodeParamsToSecret(apiSecret: String, parameters: String): String? {
+        var mac: Mac? = null
+        var result: ByteArray? = null
+        return try {
+            mac = Mac.getInstance("HmacSHA256")
+            val key = apiSecret.trim { it <= ' ' }
+            val keyBytes = key.toByteArray()
+            val sk = SecretKeySpec(keyBytes, mac.algorithm)
+            mac.init(sk)
+            result = mac.doFinal(parameters.toByteArray(StandardCharsets.UTF_8))
+            Base64Util.enCodeByArrayToBase64(result)
+        } catch (ex: NoSuchAlgorithmException) {
+            null
+        } catch (ex: InvalidKeyException) {
+            null
+        }
+    }
+
+    fun getCurrentTimeTicks(): String? {
+        return try {
+            val tsLong = 621355968000000000L + System.currentTimeMillis() * 10000
+            tsLong.toString()
+        } catch (e: java.lang.Exception) {
+            System.currentTimeMillis().toString()
+        }
+    }
+
 }

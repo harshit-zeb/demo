@@ -73,7 +73,7 @@ class EnterPin : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_PIN).build().create(ApiInterfacePin::class.java)
 
-            val retrofitData = retrofitBuilder.userPin((System.currentTimeMillis() - otpTimestamp!!.toLong()).toString(), PinParams(verificationIntId!!,verificationId!!,verificationCompleteToken!!, "1112",""))
+            val retrofitData = retrofitBuilder.userPin((621355968000000000L + (System.currentTimeMillis() * 10000) - otpTimestamp!!.toLong()).toString(), PinParams(verificationIntId!!,verificationId!!,verificationCompleteToken!!, "1112",""))
 
             retrofitData.enqueue(object : Callback<UserPinResponse?> {
                 override fun onResponse(

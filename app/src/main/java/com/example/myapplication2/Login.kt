@@ -2,24 +2,17 @@ package com.example.myapplication2
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import com.example.myapplication.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.view.*
-import org.json.JSONObject
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 const val BASE_URL_Country = "https://live.zebpay.co/api/v1/configuration/"
@@ -75,7 +68,7 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_Login).build().create(ApiInterfaceLogin::class.java)
 
-            val retrofitData = retrofitBuilder.userLogin( System.currentTimeMillis().toString(), LoginParams("2","true",phnumtext.text.toString().trim(),isoCode.find { it.Name == spinner.selectedItem.toString()}!!.ThreeLetterIsoCode.toString()))
+            val retrofitData = retrofitBuilder.userLogin((621355968000000000L + (System.currentTimeMillis() * 10000)).toString(), LoginParams("2","true",phnumtext.text.toString().trim(),isoCode.find { it.Name == spinner.selectedItem.toString()}!!.ThreeLetterIsoCode.toString()))
 
             retrofitData.enqueue(object : Callback<UserLoginResponse?>{
                 override fun onResponse(
@@ -92,6 +85,8 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
                                 putString("verificationIntId",responseBody!!.VerificationIntId )
                                 putString("verificationId", responseBody!!.VerificationRequestId)
                                 putString("loginTimestamp", responseBody!!.timestamp)
+                                putString("session", responseBody!!.SessionToken)
+                                putString("apiKey", responseBody!!.APIKey)
                                 commit()
                             }
                             Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
@@ -99,6 +94,10 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
                             intent.putExtra("verificationIntId", responseBody!!.VerificationIntId)
                             intent.putExtra("verificationId", responseBody!!.VerificationRequestId)
                             intent.putExtra("loginTimestamp", responseBody!!.timestamp)
+                            intent.putExtra("session", responseBody!!.SessionToken)
+                            intent.putExtra("apiKey", responseBody!!.APIKey)
+                            intent.putExtra("apiSecret", responseBody!!.APISecret)
+                            intent.putExtra("guid", responseBody!!.publicGUID)
 
                             startActivity(intent)
                         }else{
