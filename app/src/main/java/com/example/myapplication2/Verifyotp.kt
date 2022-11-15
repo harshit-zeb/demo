@@ -21,6 +21,7 @@ import zebpay.application.utils.Base64Util
 import java.nio.charset.StandardCharsets
 import java.security.InvalidKeyException
 import java.security.NoSuchAlgorithmException
+import java.util.UUID
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
@@ -74,11 +75,12 @@ class Verifyotp : AppCompatActivity() {
         Log.d("loginTimestamp" , loginTimestamp!!)
         Log.d("apiSecret" , apiSecret!!)
         Log.d("sessionToken" , sessionToken!!)
-        Log.d("loginTimestampDiff" ,(getCurrentTimeTicks()!!.toLong()- loginTimestamp!!.toLong()).toString())
+        Log.d("loginTimestampDiff" ,(2*getCurrentTimeTicks()!!.toLong()- loginTimestamp!!.toLong()).toString())
 
 
         verify_otp_btn.setOnClickListener{
         Log.d("otp", otpText)
+            var nonce = UUID.randomUUID().toString()
             Log.d("loginTimestampDiff" ,((621355968000000000L + System.currentTimeMillis() * 10000)- loginTimestamp!!.toLong()).toString())
             val retrofitBuilder = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -87,16 +89,17 @@ class Verifyotp : AppCompatActivity() {
             headers["timestamp"] = (2*(621355968000000000L + (System.currentTimeMillis() * 10000))- loginTimestamp!!.toLong()).toString()
             headers["session"] = sessionToken!!
             headers["apikey"] = apiKey!!
-
+            headers["nonce"] = getCurrentTimeTicks()!!
+            headers["reqid"] = nonce
             val headersMessage: String? =
                 getHeadersForPayloadGeneration(
                     "0CB88193-1328-4AFA-B013-5CBF46D81AD0",
                     "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc", apiKey!!, sessionToken!!,
-                    "e7000b3f-b963-4fba-b126-a974d2b196dd"
+                    nonce
                 )
             val payloadMessage: String? =
                     getMessageForPayload(
-                        ((621355968000000000L + (System.currentTimeMillis() * 10000))- loginTimestamp!!.toLong()).toString(),
+                        (2*getCurrentTimeTicks()!!.toLong()- loginTimestamp!!.toLong()).toString(),
                     "https://live.zebpay.co/api/v1/verifyaccountcode", "dummy=1", headersMessage!!
                 )
             val payLoad: String? =  encodeParamsToSecret(apiSecret!!, payloadMessage!!)
@@ -250,12 +253,12 @@ class Verifyotp : AppCompatActivity() {
         }
     }
 
-    fun getCurrentTimeTicks(): String? {
+    private fun getCurrentTimeTicks(): String? {
         return try {
             val tsLong = 621355968000000000L + System.currentTimeMillis() * 10000
-            tsLong.toString()
+           return tsLong.toString()
         } catch (e: java.lang.Exception) {
-            System.currentTimeMillis().toString()
+           return System.currentTimeMillis().toString()
         }
     }
 

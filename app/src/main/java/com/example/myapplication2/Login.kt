@@ -97,7 +97,6 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
                             intent.putExtra("session", responseBody!!.SessionToken)
                             intent.putExtra("apiKey", responseBody!!.APIKey)
                             intent.putExtra("apiSecret", responseBody!!.APISecret)
-                            intent.putExtra("guid", responseBody!!.publicGUID)
 
                             startActivity(intent)
                         }else{

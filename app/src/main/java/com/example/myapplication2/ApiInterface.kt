@@ -49,10 +49,7 @@ interface ApiInterfaceOtp{
     @Headers(
         "apptoken: 0CB88193-1328-4AFA-B013-5CBF46D81AD0",
         "version: 0",
-        "nonce: 637305869802650000",
         "phonehash: ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc",
-        //"reqid: 4eeb96b8-b09a-4629-9869-fccc14629d08"
-        "reqid: e7000b3f-b963-4fba-b126-a974d2b196dd"
     )
     @POST("verifyaccountcode")
     fun userOtp(@HeaderMap headers:Map<String, String> , @Body body: OtpParams):Call<UserOtpResponse>
