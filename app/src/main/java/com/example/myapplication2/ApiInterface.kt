@@ -1,7 +1,10 @@
 package com.example.myapplication2
 
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 import java.math.BigInteger
 
@@ -52,7 +55,7 @@ interface ApiInterfaceOtp{
         "phonehash: ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc",
     )
     @POST("verifyaccountcode")
-    fun userOtp(@HeaderMap headers:Map<String, String> , @Body body: OtpParams):Call<UserOtpResponse>
+     suspend fun userOtp(@HeaderMap headers:Map<String, String> , @Body body: RequestBody):Response<ResponseBody>
 
 }
 

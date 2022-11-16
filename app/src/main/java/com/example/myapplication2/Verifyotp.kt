@@ -11,12 +11,19 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_verifyotp.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import retrofit2.*
+//import retrofit2.converter.gson.GsonConverterFactory
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -84,7 +91,6 @@ class Verifyotp : AppCompatActivity() {
             var reqId = UUID.randomUUID().toString()
             Log.d("loginTimestampDiff" ,(2*(621355968000000000L + System.currentTimeMillis() * 10000)- loginTimestamp!!.toLong()).toString())
             val retrofitBuilder = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_Otp).build().create(ApiInterfaceOtp::class.java)
                 var headers = mutableMapOf<String, String>()
             headers["timestamp"] = (2*(621355968000000000L + (System.currentTimeMillis() * 10000))- loginTimestamp!!.toLong()).toString()
@@ -99,11 +105,10 @@ class Verifyotp : AppCompatActivity() {
                     reqId
                 )
             var parameterCollection = mutableMapOf<String, String>()
-            parameterCollection["verificationIntId"] = verificationIntId
-            headers["verificationId"] = verificationId!!
-            headers["messageReceived"] = "840429 is your Zebpay verification code"
-            headers["code"] = "840429"
-            headers["otpAuthToken"] = ""
+            parameterCollection["verificationId"] = verificationId!!
+            parameterCollection["messageReceived"] = "840429 is your Zebpay verification code"
+            parameterCollection["code"] = "840429"
+            parameterCollection["otpAuthToken"] = ""
             val payloadMessage: String? =
                     getMessageForPayload(
                         (2*getCurrentTimeTicks()!!.toLong()- loginTimestamp!!.toLong()).toString(),
@@ -113,44 +118,73 @@ class Verifyotp : AppCompatActivity() {
             val SIGNATURE = "signature"
             Log.d("payload", payLoad!!)
             headers[SIGNATURE] = payLoad!!
-            val retrofitData = retrofitBuilder.userOtp( headers, OtpParams(verificationIntId!!,verificationId!!,"840429 is your Zebpay verification code", "840429",""))
 
-            retrofitData.enqueue(object : Callback<UserOtpResponse?> {
-                override fun onResponse(
-                    call: Call<UserOtpResponse?>,
-                    response: Response<UserOtpResponse?>
-                ) {
-                    try {
-                        val responseBody:UserOtpResponse? = response.body()
-                        Log.d("response",responseBody.toString())
-                        if(responseBody!!.err == "Success"){
-                            Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
-                            val sharedPref = this@Verifyotp?.getPreferences(Context.MODE_PRIVATE) ?: return
-                            with(sharedPref.edit()){
-                                putString("verificationCompleteToken",  responseBody!!.VerificationCompleteToken)
-                                putString("otpTimestamp",  responseBody!!.timestamp)
-                                putString("otpTimestamp",  responseBody!!.timestamp)
-                                apply()
-                            }
-                            val intent = Intent(applicationContext, EnterPin::class.java)
-                            intent.putExtra("verificationCompleteToken",  responseBody!!.VerificationCompleteToken)
-                            intent.putExtra("otpTimestamp",  responseBody!!.timestamp)
-                            intent.putExtra("verificationIntId", verificationId!!)
-                            intent.putExtra("verificationId",  verificationId!!)
-                            startActivity(intent)
-                        }else{
-                            Toast.makeText(applicationContext,"Invalid Otp",Toast.LENGTH_LONG).show()
-                        }
-                    }catch (ex: Exception){
-                        Toast.makeText(applicationContext,"Login Error",Toast.LENGTH_LONG)
+            var jsonObject = JSONObject()
+            jsonObject.put("verificationIntId", verificationIntId!!)
+            jsonObject.put("verificationId", verificationId!!)
+            jsonObject.put("messageReceived", "840429 is your Zebpay verification code")
+            jsonObject.put("code", "840429")
+            jsonObject.put("otpAuthToken", "")
+            var jsonObjString = jsonObject.toString()
+            val requestBody = jsonObjString.toRequestBody("application/json".toMediaTypeOrNull())
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val retrofitData = retrofitBuilder.userOtp( headers, requestBody)
+
+                withContext(Dispatchers.Main) {
+                    if(retrofitData.isSuccessful){
+                        val gson = GsonBuilder().setPrettyPrinting().create()
+                        val prettyJson = gson.toJson(
+                            JsonParser.parseString(
+                                retrofitData.body()
+                                    ?.string() // About this thread blocking annotation : https://github.com/square/retrofit/issues/3255
+                            ))
+                        Log.d("responseeeeeee ", prettyJson)
+                    }else{
+                        Log.e("RETROFIT_ERROR", retrofitData.code().toString())
                     }
                 }
 
-                override fun onFailure(call: Call<UserOtpResponse?>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
+            }
 
-            })
+
+//            retrofitData.enqueue(object : Callback<UserOtpResponse?> {
+//                override fun onResponse(
+//                    call: Call<UserOtpResponse?>,
+//                    response: Response<UserOtpResponse?>
+//                ) {
+//                    try {
+//                        val responseBody:UserOtpResponse? = response.body()
+//                        Log.d("response",responseBody.toString())
+//                        if(responseBody!!.err == "Success"){
+//                            Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
+//                            val sharedPref = this@Verifyotp?.getPreferences(Context.MODE_PRIVATE) ?: return
+//                            with(sharedPref.edit()){
+//                                putString("verificationCompleteToken",  responseBody!!.VerificationCompleteToken)
+//                                putString("otpTimestamp",  responseBody!!.timestamp)
+//                                putString("otpTimestamp",  responseBody!!.timestamp)
+//                                apply()
+//                            }
+//                            val intent = Intent(applicationContext, EnterPin::class.java)
+//                            intent.putExtra("verificationCompleteToken",  responseBody!!.VerificationCompleteToken)
+//                            intent.putExtra("otpTimestamp",  responseBody!!.timestamp)
+//                            intent.putExtra("verificationIntId", verificationId!!)
+//                            intent.putExtra("verificationId",  verificationId!!)
+//                            startActivity(intent)
+//                        }else{
+//                            Toast.makeText(applicationContext,"Invalid Otp",Toast.LENGTH_LONG).show()
+//
+//                        }
+//                    }catch (ex: Exception){
+//                        Toast.makeText(applicationContext,"Login Error",Toast.LENGTH_LONG)
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<UserOtpResponse?>, t: Throwable) {
+//                    TODO("Not yet implemented")
+//                }
+//
+//            })
 //            }else{
 //                Toast.makeText(applicationContext, "Wrong OTP" , Toast.LENGTH_LONG).show()
 //                otp_edit_box1.setBackgroundResource(R.drawable.edittext_curve_bg_error)
