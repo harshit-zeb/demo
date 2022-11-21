@@ -2,6 +2,8 @@ package com.example.myapplication2
 
 //import retrofit2.converter.gson.GsonConverterFactory
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,13 +11,17 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request.Method
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.RequestFuture
 import com.android.volley.toolbox.Volley
 import com.example.myapplication2.network.VolleyController
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_verifyotp.*
+import org.json.JSONObject
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -99,6 +105,7 @@ class Verifyotp : AppCompatActivity() {
             parameterCollection["otpAuthToken"] = ""
 
 
+            var jsonResponse: UserOtpResponse.userOtpData? = null
             val t = Thread {
                 Log.d("RT", "Thread t Begins")
                 val url: String = "https://live.zebpay.co/api/v1/verifyaccountcode"
@@ -112,11 +119,48 @@ class Verifyotp : AppCompatActivity() {
                     "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc"
                 )
 
-                if (response != null)
-                    Log.e("responseeeeee", response)
+                if (response != null){
+                    Log.e("responseeeeee", response!!)
+                    jsonResponse = Gson()?.fromJson(response!!.trimIndent() , UserOtpResponse.userOtpData::class.java)
+                    if (jsonResponse != null) {
+                        if (jsonResponse!!.err == "Success") {
+                            //Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_LONG).show()
+                            val sharedPref = this@Verifyotp?.getPreferences(Context.MODE_PRIVATE)
+                                ?: return@Thread
+                            with(sharedPref.edit()) {
+                                putString(
+                                    "verificationCompleteToken",
+                                    jsonResponse!!.VerificationCompleteToken
+                                )
+                                putString("otpTimestamp", jsonResponse!!.timestamp)
+                                putString("verificationCompleteToken", jsonResponse!!.VerificationCompleteToken)
+                                putString("apiSecret",apiSecret)
+                                putString("apiKey",apiKey)
+                                putString("sessionToken",sessionToken)
+                                apply()
+                            }
+                            val intent = Intent(applicationContext, EnterPin::class.java)
+                            intent.putExtra(
+                                "verificationCompleteToken",
+                                jsonResponse!!.VerificationCompleteToken
+                            )
+                            intent.putExtra("otpTimestamp", jsonResponse!!.timestamp)
+                            intent.putExtra("apiKey", apiKey!!)
+                            intent.putExtra("apiSecret", apiSecret!!)
+                            intent.putExtra("verificationId", verificationId!!)
+                            intent.putExtra("sessionToken", sessionToken!!)
+                            startActivity(intent)
+                        }
+                    }else{
+                       // Toast.makeText(applicationContext, "invalid" , Toast.LENGTH_LONG).show()
+                    }
+                }
+
 
             }
             t.start()
+
+
 
 
 //            CoroutineScope(Dispatchers.IO).launch {
@@ -137,12 +181,6 @@ class Verifyotp : AppCompatActivity() {
 //                }
 //
 //            }
-
-
-
-
-
-
 
 
 //            retrofitData.enqueue(object : Callback<UserOtpResponse?> {
@@ -384,16 +422,16 @@ class Verifyotp : AppCompatActivity() {
             val err = "err"
             response
         } catch (ex: InterruptedException) {
-            Log.e("Ex InterruptedException",ex.message.toString())
+            Log.e("Ex InterruptedException", ex.message.toString())
             null
         } catch (tm: TimeoutException) {
-            Log.e("Ex TimeoutException",tm.message.toString())
+            Log.e("Ex TimeoutException", tm.message.toString())
             null
         } catch (e: ExecutionException) {
-            Log.e("Ex ExecutionException",e.message.toString())
+            Log.e("Ex ExecutionException", e.message.toString())
             null
         } catch (ex: Exception) {
-            Log.e("Ex Exception",ex.message.toString())
+            Log.e("Ex Exception", ex.message.toString())
             null
         }
     }
@@ -403,7 +441,7 @@ class Verifyotp : AppCompatActivity() {
         return mNormalRequestQueue
     }
 
-    private fun setHeaderParameters(
+    private fun  setHeaderParameters(
         headers: HashMap<String?, String?>,
         version: String,
         phoneHash: String,
