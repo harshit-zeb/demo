@@ -1,6 +1,7 @@
 package com.example.myapplication2
 
 //import retrofit2.converter.gson.GsonConverterFactory
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,11 +14,8 @@ import com.android.volley.Request.Method
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.RequestFuture
 import com.android.volley.toolbox.Volley
+import com.example.myapplication2.network.VolleyController
 import kotlinx.android.synthetic.main.activity_verifyotp.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
-import retrofit2.*
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -101,6 +99,25 @@ class Verifyotp : AppCompatActivity() {
             parameterCollection["otpAuthToken"] = ""
 
 
+            val t = Thread {
+                Log.d("RT", "Thread t Begins")
+                val url: String = "https://live.zebpay.co/api/v1/verifyaccountcode"
+                var response = sendRequest(
+                    url,
+                    getParameters(parameterCollection),
+                    apiSecret,
+                    apiKey!!,
+                    sessionToken,
+                    (2 * getCurrentTimeTicks()!!.toLong() - loginTimestamp!!.toLong()).toString(),
+                    "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc"
+                )
+
+                if (response != null)
+                    Log.e("responseeeeee", response)
+
+            }
+            t.start()
+
 
 //            CoroutineScope(Dispatchers.IO).launch {
 //                val retrofitData = retrofitBuilder.userOtp( headers, requestBody)
@@ -121,11 +138,13 @@ class Verifyotp : AppCompatActivity() {
 //
 //            }
 
-            val url: String = "https://live.zebpay.co/api/v1/verifyaccountcode"
 
-            var response = sendRequest(url,getParameters(parameterCollection),apiSecret,apiKey!! ,sessionToken,(2 * getCurrentTimeTicks()!!.toLong() - loginTimestamp!!.toLong()).toString(),"ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc")
 
-    Log.d("responseeeeee", response!!)
+
+
+
+
+
 //            retrofitData.enqueue(object : Callback<UserOtpResponse?> {
 //                override fun onResponse(
 //                    call: Call<UserOtpResponse?>,
@@ -301,6 +320,7 @@ class Verifyotp : AppCompatActivity() {
         return par.toString()
     }
 
+
     fun sendRequest(
         requestName: String,
         requestParams: String?,
@@ -330,20 +350,20 @@ class Verifyotp : AppCompatActivity() {
                 sessionHeaderValue,
                 timeStamp, requestIdHeaderValue
             )
-                val headersMessage: String? =
-                  getHeadersForPayloadGeneration(
-                        appTokenHeaderValue,
-                        phoneHashHeaderValue, apiKeyHeaderValue, sessionHeaderValue,
-                        requestIdHeaderValue
-                    )
-                val payloadMessage: String? =
-                 getMessageForPayload(
-                        timeStamp,
-                        requestName, requestParams!!, headersMessage!!
-                    )
-                val payLoad: String? = encodeParamsToSecret(apiSecret, payloadMessage!!)
-                val SIGNATURE = "signature"
-                headers[SIGNATURE] = payLoad
+            val headersMessage: String? =
+                getHeadersForPayloadGeneration(
+                    appTokenHeaderValue,
+                    phoneHashHeaderValue, apiKeyHeaderValue, sessionHeaderValue,
+                    requestIdHeaderValue
+                )
+            val payloadMessage: String? =
+                getMessageForPayload(
+                    timeStamp,
+                    requestName, requestParams!!, headersMessage!!
+                )
+            val payLoad: String? = encodeParamsToSecret(apiSecret, payloadMessage!!)
+            val SIGNATURE = "signature"
+            headers[SIGNATURE] = payLoad
 
             val future = RequestFuture.newFuture<Any>()
             val mVolleyRequest = VolleyRequest(
@@ -353,10 +373,8 @@ class Verifyotp : AppCompatActivity() {
 
             //Set cache allow false
             mVolleyRequest.setShouldCache(false)
-            // Add the request to the RequestQueue.
-            getPublicRequestQueue()!!.add<Any>(mVolleyRequest)
-            //Remove cache
-            getPublicRequestQueue()!!.getCache().clear()
+
+            VolleyController.getInstance(applicationContext).addToRequestQueue(mVolleyRequest);
             val apiResponse = future[1, TimeUnit.MINUTES]
             response = apiResponse.toString()
 
@@ -366,21 +384,22 @@ class Verifyotp : AppCompatActivity() {
             val err = "err"
             response
         } catch (ex: InterruptedException) {
-
+            Log.e("Ex InterruptedException",ex.message.toString())
             null
         } catch (tm: TimeoutException) {
-          null
+            Log.e("Ex TimeoutException",tm.message.toString())
+            null
         } catch (e: ExecutionException) {
-
+            Log.e("Ex ExecutionException",e.message.toString())
             null
         } catch (ex: Exception) {
-
+            Log.e("Ex Exception",ex.message.toString())
             null
         }
     }
 
     fun getPublicRequestQueue(): RequestQueue? {
-           var mNormalRequestQueue : RequestQueue? = Volley.newRequestQueue(applicationContext)
+        var mNormalRequestQueue: RequestQueue? = Volley.newRequestQueue(applicationContext)
         return mNormalRequestQueue
     }
 

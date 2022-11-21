@@ -30,10 +30,10 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
         val sharedPref = this@Login?.getPreferences(Context.MODE_PRIVATE) ?: return
         val defaultValue = "False"
         val userStatus= sharedPref.getString("User", defaultValue)
-        if(userStatus == "True"){
+      /*  if(userStatus == "True"){
             val intent = Intent(applicationContext, EnterPin::class.java)
             startActivity(intent)
-        }
+        }*/
         countryNameList.add("India")
         countryCodeList.add("+91")
         loginbutton.isEnabled = false
