@@ -49,13 +49,14 @@ class EnterPin : AppCompatActivity() {
         var verificationCompleteToken:String? = ""
         var otpTimestamp:String? = ""
         val sharedPref = this@EnterPin?.getPreferences(Context.MODE_PRIVATE) ?: return
-        val bundle:Bundle? = intent.extras!!
+        var bundle:Bundle? = intent.extras
         if(sharedPref.getString("User","False") == "True"){
             verificationIntId= sharedPref.getString("verificationIntId","")
             verificationId= sharedPref.getString("verificationId","")
             verificationCompleteToken= sharedPref.getString("verificationCompleteToken","")
             otpTimestamp= sharedPref.getString("otpTimestamp","")
         }else if(bundle!= null){
+            bundle= intent.extras!!
             verificationIntId= bundle.getString("verificationIntId")
             verificationId= bundle.getString("verificationId")
             verificationCompleteToken= bundle.getString("verificationCompleteToken")
