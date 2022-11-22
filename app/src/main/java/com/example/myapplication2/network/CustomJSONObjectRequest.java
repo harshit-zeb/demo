@@ -25,14 +25,13 @@ public class CustomJSONObjectRequest extends Request<JSONObject> {
     private final String mBody;
     private String mContentType;
 
-    public CustomJSONObjectRequest(int method,HashMap<String, String> customHeaders, String url, String
-                                    body,
-                                   Listener<JSONObject> responseListener, ErrorListener errorListener) {
+    public CustomJSONObjectRequest(int method, HashMap<String, String> customHeaders, String url, String body, Listener<JSONObject> responseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
         mCustomHeaders = customHeaders;
         this.listener = responseListener;
         this.mBody = body;
     }
+
     @Override
     protected String getParamsEncoding() {
         return "utf-8";
@@ -51,10 +50,8 @@ public class CustomJSONObjectRequest extends Request<JSONObject> {
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
         try {
-            String jsonString = new String(response.data,
-                    HttpHeaderParser.parseCharset(response.headers));
-            return Response.success(new JSONObject(jsonString),
-                    HttpHeaderParser.parseCacheHeaders(response));
+            String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+            return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         } catch (JSONException je) {
@@ -66,6 +63,7 @@ public class CustomJSONObjectRequest extends Request<JSONObject> {
     protected void deliverResponse(JSONObject response) {
         listener.onResponse(response);
     }
+
     @Override
     public HashMap<String, String> getHeaders() throws AuthFailureError {
         if (mCustomHeaders != null) {
@@ -73,6 +71,7 @@ public class CustomJSONObjectRequest extends Request<JSONObject> {
         }
         return (HashMap<String, String>) super.getHeaders();
     }
+
     public void setPriority(Priority priority) {
         mPriority = priority;
     }

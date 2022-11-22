@@ -36,7 +36,7 @@ import javax.crypto.spec.SecretKeySpec
 
 
 var pinText: String = ""
-var BASE_URL_PIN = "https://live.zebpay.co/api/v1/"
+
 class EnterPin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,81 +49,41 @@ class EnterPin : AppCompatActivity() {
         otp_edit_box1.setOnKeyListener(GenericKeyEvent(otp_edit_box1, null))
         otp_edit_box2.setOnKeyListener(GenericKeyEvent(otp_edit_box2, otp_edit_box1))
         otp_edit_box3.setOnKeyListener(GenericKeyEvent(otp_edit_box3, otp_edit_box2))
-        otp_edit_box4.setOnKeyListener(GenericKeyEvent(otp_edit_box4,otp_edit_box3))
+        otp_edit_box4.setOnKeyListener(GenericKeyEvent(otp_edit_box4, otp_edit_box3))
 
-        var verificationId:String? = ""
-        var verificationCompleteToken:String? = ""
-        var otpTimestamp:String? = ""
-        var apiSecret:String? = ""
-        var apiKey:String? = ""
-        var sessionToken:String? = ""
-        val sharedPref = getSharedPreferences("myData",Context.MODE_PRIVATE)
-        var bundle:Bundle? = intent.extras
+        var verificationId: String? = ""
+        var verificationCompleteToken: String? = ""
+        var otpTimestamp: String? = ""
+        var apiSecret: String? = ""
+        var apiKey: String? = ""
+        var sessionToken: String? = ""
+        val sharedPref = getSharedPreferences("myData", Context.MODE_PRIVATE)
+        var bundle: Bundle? = intent.extras
 
-        if(sharedPref!!.getString("User","False") == "True"){
-            verificationId= sharedPref!!.getString("verificationId","")
-            verificationCompleteToken= sharedPref!!.getString("verificationCompleteToken","")
-            otpTimestamp= sharedPref!!.getString("otpTimestamp","")
-            apiSecret= sharedPref!!.getString("apiSecret","")
-            apiKey= sharedPref!!.getString("apiKey","")
-            sessionToken= sharedPref!!.getString("sessionToken","")
-        }else  if (bundle!=null){
+        if (sharedPref!!.getString("User", "False") == "True") {
+            verificationId = sharedPref!!.getString("verificationId", "")
+            verificationCompleteToken = sharedPref!!.getString("verificationCompleteToken", "")
+            otpTimestamp = sharedPref!!.getString("otpTimestamp", "")
+            apiSecret = sharedPref!!.getString("apiSecret", "")
+            apiKey = sharedPref!!.getString("apiKey", "")
+            sessionToken = sharedPref!!.getString("sessionToken", "")
+        } else if (bundle != null) {
 
-                bundle= intent.extras!!
-                verificationId= bundle.getString("verificationId")
-                verificationCompleteToken= bundle.getString("verificationCompleteToken")
-                otpTimestamp= bundle.getString("otpTimestamp")
-                apiSecret= bundle.getString("apiSecret")
-                apiKey= bundle.getString("apiKey")
-                sessionToken= bundle.getString("sessionToken")
-            }
+            bundle = intent.extras!!
+            verificationId = bundle.getString("verificationId")
+            verificationCompleteToken = bundle.getString("verificationCompleteToken")
+            otpTimestamp = bundle.getString("otpTimestamp")
+            apiSecret = bundle.getString("apiSecret")
+            apiKey = bundle.getString("apiKey")
+            sessionToken = bundle.getString("sessionToken")
+        }
 
 
-        verify_pin_btn.setOnClickListener{
-//            if(pinText == "1112") {
-//                var intent = Intent(applicationContext, MainActivity::class.java)
-//                finish()
-//                startActivity(intent)
-//            }
-
-//            val retrofitBuilder = Retrofit.Builder()
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .baseUrl(BASE_URL_PIN).build().create(ApiInterfacePin::class.java)
-//
-//            val retrofitData = retrofitBuilder.userPin((621355968000000000L + (System.currentTimeMillis() * 10000) - otpTimestamp!!.toLong()).toString(), PinParams(verificationIntId!!,verificationId!!,verificationCompleteToken!!, "1112",""))
-
-//            retrofitData.enqueue(object : Callback<UserPinResponse?> {
-//                override fun onResponse(
-//                    call: Call<UserPinResponse?>,
-//                    response: Response<UserPinResponse?>
-//                ) {
-//                    try {
-//                        val responseBody:UserPinResponse? = response.body()
-//                        Log.d("response",responseBody.toString())
-//                        if(responseBody!!.err == "Success"){
-//                            Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
-//                            val intent = Intent(applicationContext, MainActivity::class.java)
-//                            finish()
-//                            startActivity(intent)
-//                        }else{
-//                            Toast.makeText(applicationContext,"Invalid Pin", Toast.LENGTH_LONG).show()
-//                            phnumtext.error ="Number not registered"
-//                        }
-//                    }catch (ex: Exception){
-//                        Toast.makeText(applicationContext,"Login Error", Toast.LENGTH_LONG)
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<UserPinResponse?>, t: Throwable) {
-//                    TODO("Not yet implemented")
-//                }
-//
-//
-//            })
+        verify_pin_btn.setOnClickListener {
 
             val sharedPref = getSharedPreferences("myData", Context.MODE_PRIVATE)
             val userStatus = sharedPref.getString("User", "False")
-            if(userStatus == "False"){
+            if (userStatus == "False") {
                 val encyPin =
                     AESHelper.encrypt("1112", apiSecret)
                         .trim()
@@ -147,55 +107,47 @@ class EnterPin : AppCompatActivity() {
                         "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc"
                     )
 
-                    if (response != null){
+                    if (response != null) {
                         Log.e("responseeeeee", response!!)
-                        jsonResponse = Gson()?.fromJson(response!!.trimIndent() , UserOtpResponse.userOtpData::class.java)
+                        jsonResponse = Gson()?.fromJson(
+                            response!!.trimIndent(),
+                            UserOtpResponse.userOtpData::class.java
+                        )
                         if (jsonResponse != null) {
                             if (jsonResponse!!.err == "Success") {
-                                var sharedPref = getSharedPreferences("myData", Context.MODE_PRIVATE)
+                                var sharedPref =
+                                    getSharedPreferences("myData", Context.MODE_PRIVATE)
                                 var editor = sharedPref.edit()
-                                editor.putString("User","True")
+                                editor.putString("User", "True")
                                 editor.putString("pin", "1112")
                                 editor.commit()
-                                //Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_LONG).show()
                                 val intent = Intent(applicationContext, MainActivity::class.java)
                                 startActivity(intent)
                             }
-                        }else{
+                        } else {
                             // Toast.makeText(applicationContext, "invalid" , Toast.LENGTH_LONG).show()
                         }
                     }
-
-
                 }
                 t.start()
-            }else{
-                if(pinText == sharedPref.getString("pin","") ){
+            } else {
+                if (pinText == sharedPref.getString("pin", "")) {
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(intent)
                 }
             }
-
-
-
-//            }else{
-//                Toast.makeText(applicationContext, "Wrong OTP" , Toast.LENGTH_LONG).show()
-//                otp_edit_box1.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box2.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box3.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box4.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box5.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box6.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//            }
         }
 
 
     }
 
-    class GenericKeyEvent internal constructor(private val currentView: EditText, private val previousView: EditText?) : View.OnKeyListener{
+    class GenericKeyEvent internal constructor(
+        private val currentView: EditText,
+        private val previousView: EditText?
+    ) : View.OnKeyListener {
         override fun onKey(p0: View?, keyCode: Int, event: KeyEvent?): Boolean {
-            if(event!!.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentView.id != R.id.otp_edit_box1 && currentView.text.isEmpty()) {
-                //If current is empty then previous EditText's number will also be deleted
+            if (event!!.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentView.id != R.id.otp_edit_box1 && currentView.text.isEmpty()) {
+                pinText = pinText.substring(0, pinText.length - 1)
                 previousView!!.text = null
                 previousView.requestFocus()
                 return true
@@ -204,11 +156,15 @@ class EnterPin : AppCompatActivity() {
         }
     }
 
-    class GenericTextWatcher internal constructor(private val currentView: View, private val nextView: View?) :
+    class GenericTextWatcher internal constructor(
+        private val currentView: View,
+        private val nextView: View?
+    ) :
         TextWatcher {
         override fun afterTextChanged(editable: Editable) { // TODO Auto-generated method stub
             val text = editable.toString()
-            pinText+=text
+            pinText += text
+            Log.e("text", pinText)
             when (currentView.id) {
                 R.id.otp_edit_box1 -> if (text.length == 1) nextView!!.requestFocus()
                 R.id.otp_edit_box2 -> if (text.length == 1) nextView!!.requestFocus()
@@ -231,9 +187,7 @@ class EnterPin : AppCompatActivity() {
             arg3: Int
         ) { // TODO Auto-generated method stub
         }
-
     }
-
 
     private fun getHeadersForPayloadGeneration(
         appToken: String,
@@ -301,7 +255,6 @@ class EnterPin : AppCompatActivity() {
         val response: String
 
         return try {
-            // Set application headers
             val phoneHashHeaderValue: String = phoneHash
             val appTokenHeaderValue: String = "0CB88193-1328-4AFA-B013-5CBF46D81AD0"
             val nonceHeaderValue: String? = getCurrentTimeTicks()
@@ -337,16 +290,11 @@ class EnterPin : AppCompatActivity() {
                 Request.Method.POST, requestName, headers,
                 requestParams, future, future, false
             )
-
-            //Set cache allow false
             mVolleyRequest.setShouldCache(false)
 
             VolleyController.getInstance(applicationContext).addToRequestQueue(mVolleyRequest);
             val apiResponse = future[1, TimeUnit.MINUTES]
             response = apiResponse.toString()
-
-
-            //Set api error log in analytics
             val returnCode = "returncode"
             val err = "err"
             response
