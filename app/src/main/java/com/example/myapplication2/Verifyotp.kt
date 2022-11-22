@@ -1,6 +1,8 @@
 package com.example.myapplication2
 
-//import retrofit2.converter.gson.GsonConverterFactory
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,11 +15,9 @@ import com.android.volley.Request.Method
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.RequestFuture
 import com.android.volley.toolbox.Volley
+import com.example.myapplication2.network.VolleyController
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_verifyotp.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
-import retrofit2.*
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -32,10 +32,10 @@ import javax.crypto.spec.SecretKeySpec
 
 
 var otpText: String = ""
-const val BASE_URL_Otp = "https://live.zebpay.co/api/v1/"
 
 class Verifyotp : AppCompatActivity() {
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verifyotp)
@@ -47,8 +47,6 @@ class Verifyotp : AppCompatActivity() {
         otp_edit_box5.addTextChangedListener(GenericTextWatcher(otp_edit_box5, otp_edit_box6))
         otp_edit_box6.addTextChangedListener(GenericTextWatcher(otp_edit_box6, null))
 
-
-
         otp_edit_box1.setOnKeyListener(GenericKeyEvent(otp_edit_box1, null))
         otp_edit_box2.setOnKeyListener(GenericKeyEvent(otp_edit_box2, otp_edit_box1))
         otp_edit_box3.setOnKeyListener(GenericKeyEvent(otp_edit_box3, otp_edit_box2))
@@ -56,10 +54,6 @@ class Verifyotp : AppCompatActivity() {
         otp_edit_box5.setOnKeyListener(GenericKeyEvent(otp_edit_box5, otp_edit_box4))
         otp_edit_box6.setOnKeyListener(GenericKeyEvent(otp_edit_box6, otp_edit_box5))
 
-        //val sharedPref = this@Verifyotp?.getPreferences(Context.MODE_PRIVATE) ?: return
-        // val verificationIntId= sharedPref.getString("verificationIntId","")
-        //val verificationId= sharedPref.getString("verificationId","")
-        //  val loginTimestamp= sharedPref.getString("loginTimestamp","")
         var verificationIntId: String? = ""
         var verificationId: String? = ""
         var loginTimestamp: String? = ""
@@ -68,7 +62,6 @@ class Verifyotp : AppCompatActivity() {
         var apiSecret: String? = ""
         var bundle: Bundle = intent.extras!!
         if (bundle != null) {
-            verificationIntId = bundle.getString("verificationIntId")
             verificationId = bundle.getString("verificationId")
             loginTimestamp = bundle.getString("loginTimestamp")
             sessionToken = bundle.getString("session")
@@ -76,23 +69,8 @@ class Verifyotp : AppCompatActivity() {
             apiSecret = bundle.getString("apiSecret")
         }
 
-        Log.d("verificationIntId", verificationIntId!!)
-        Log.d("verificationId", verificationId!!)
-        Log.d("loginTimestamp", loginTimestamp!!)
-        Log.d("apiSecret", apiSecret!!)
-        Log.d("sessionToken", sessionToken!!)
-
 
         verify_otp_btn.setOnClickListener {
-            Log.d("otp", otpText)
-            var reqId = UUID.randomUUID().toString()
-            Log.d(
-                "loginTimestampDiff",
-                (2 * (621355968000000000L + System.currentTimeMillis() * 10000) - loginTimestamp!!.toLong()).toString()
-            )
-//
-//            val retrofitBuilder = Retrofit.Builder()
-//                .baseUrl(BASE_URL_Otp).build().create(ApiInterfaceOtp::class.java)
 
             var parameterCollection = mutableMapOf<String, String>()
             parameterCollection["verificationId"] = verificationId!!
@@ -101,77 +79,63 @@ class Verifyotp : AppCompatActivity() {
             parameterCollection["otpAuthToken"] = ""
 
 
+            var jsonResponse: UserOtpResponse.userOtpData? = null
+            val t = Thread {
+                Log.d("RT", "Thread t Begins")
+                val url: String = "https://live.zebpay.co/api/v1/verifyaccountcode"
+                var response = sendRequest(
+                    url,
+                    getParameters(parameterCollection),
+                    apiSecret!!,
+                    apiKey!!,
+                    sessionToken!!,
+                    (2 * getCurrentTimeTicks()!!.toLong() - loginTimestamp!!.toLong()).toString(),
+                    "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc"
+                )
 
-//            CoroutineScope(Dispatchers.IO).launch {
-//                val retrofitData = retrofitBuilder.userOtp( headers, requestBody)
-//
-//                withContext(Dispatchers.Main) {
-//                    if(retrofitData.isSuccessful){
-//                        val gson = GsonBuilder().setPrettyPrinting().create()
-//                        val prettyJson = gson.toJson(
-//                            JsonParser.parseString(
-//                                retrofitData.body()
-//                                    ?.string() // About this thread blocking annotation : https://github.com/square/retrofit/issues/3255
-//                            ))
-//                        Log.d("responseeeeeee ", prettyJson)
-//                    }else{
-//                        Log.e("RETROFIT_ERROR", retrofitData.code().toString())
-//                    }
-//                }
-//
-//            }
+                if (response != null) {
+                    Log.e("responseeeeee", response!!)
+                    jsonResponse = Gson()?.fromJson(
+                        response!!.trimIndent(),
+                        UserOtpResponse.userOtpData::class.java
+                    )
+                    if (jsonResponse != null) {
+                        if (jsonResponse!!.err == "Success") {
+                            val sharedPref = getSharedPreferences("myData", Context.MODE_PRIVATE)
+                            val editor = sharedPref!!.edit()
+                            editor.putString(
+                                "verificationCompleteToken",
+                                jsonResponse!!.VerificationCompleteToken
+                            )
+                            editor.putString("otpTimestamp", jsonResponse!!.timestamp)
+                            editor.putString(
+                                "verificationCompleteToken",
+                                jsonResponse!!.VerificationCompleteToken
+                            )
+                            editor.putString("apiSecret", apiSecret)
+                            editor.commit()
 
-            val url: String = "https://live.zebpay.co/api/v1/verifyaccountcode"
+                            val intent = Intent(applicationContext, EnterPin::class.java)
+                            intent.putExtra(
+                                "verificationCompleteToken",
+                                jsonResponse!!.VerificationCompleteToken
+                            )
+                            intent.putExtra("otpTimestamp", jsonResponse!!.timestamp)
+                            intent.putExtra("apiKey", apiKey!!)
+                            intent.putExtra("apiSecret", apiSecret!!)
+                            intent.putExtra("verificationId", verificationId!!)
+                            intent.putExtra("sessionToken", sessionToken!!)
+                            startActivity(intent)
+                        }
+                    } else {
+                        // Toast.makeText(applicationContext, "invalid" , Toast.LENGTH_LONG).show()
+                    }
+                }
 
-            var response = sendRequest(url,getParameters(parameterCollection),apiSecret,apiKey!! ,sessionToken,(2 * getCurrentTimeTicks()!!.toLong() - loginTimestamp!!.toLong()).toString(),"ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc")
 
-    Log.d("responseeeeee", response!!)
-//            retrofitData.enqueue(object : Callback<UserOtpResponse?> {
-//                override fun onResponse(
-//                    call: Call<UserOtpResponse?>,
-//                    response: Response<UserOtpResponse?>
-//                ) {
-//                    try {
-//                        val responseBody:UserOtpResponse? = response.body()
-//                        Log.d("response",responseBody.toString())
-//                        if(responseBody!!.err == "Success"){
-//                            Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
-//                            val sharedPref = this@Verifyotp?.getPreferences(Context.MODE_PRIVATE) ?: return
-//                            with(sharedPref.edit()){
-//                                putString("verificationCompleteToken",  responseBody!!.VerificationCompleteToken)
-//                                putString("otpTimestamp",  responseBody!!.timestamp)
-//                                putString("otpTimestamp",  responseBody!!.timestamp)
-//                                apply()
-//                            }
-//                            val intent = Intent(applicationContext, EnterPin::class.java)
-//                            intent.putExtra("verificationCompleteToken",  responseBody!!.VerificationCompleteToken)
-//                            intent.putExtra("otpTimestamp",  responseBody!!.timestamp)
-//                            intent.putExtra("verificationIntId", verificationId!!)
-//                            intent.putExtra("verificationId",  verificationId!!)
-//                            startActivity(intent)
-//                        }else{
-//                            Toast.makeText(applicationContext,"Invalid Otp",Toast.LENGTH_LONG).show()
-//
-//                        }
-//                    }catch (ex: Exception){
-//                        Toast.makeText(applicationContext,"Login Error",Toast.LENGTH_LONG)
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<UserOtpResponse?>, t: Throwable) {
-//                    TODO("Not yet implemented")
-//                }
-//
-//            })
-//            }else{
-//                Toast.makeText(applicationContext, "Wrong OTP" , Toast.LENGTH_LONG).show()
-//                otp_edit_box1.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box2.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box3.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box4.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box5.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//                otp_edit_box6.setBackgroundResource(R.drawable.edittext_curve_bg_error)
-//            }
+            }
+            t.start()
+
         }
 
 
@@ -184,7 +148,7 @@ class Verifyotp : AppCompatActivity() {
     ) : View.OnKeyListener {
         override fun onKey(p0: View?, keyCode: Int, event: KeyEvent?): Boolean {
             if (event!!.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentView.id != R.id.otp_edit_box1 && currentView.text.isEmpty()) {
-                //If current is empty then previous EditText's number will also be deleted
+                otpText = otpText.substring(0, otpText.length - 1)
                 previousView!!.text = null
                 previousView.requestFocus()
                 return true
@@ -197,10 +161,9 @@ class Verifyotp : AppCompatActivity() {
         private val currentView: View,
         private val nextView: View?
     ) : TextWatcher {
-        override fun afterTextChanged(editable: Editable) { // TODO Auto-generated method stub
+        override fun afterTextChanged(editable: Editable) {
             val text = editable.toString()
             otpText += text
-
             when (currentView.id) {
                 R.id.otp_edit_box1 -> if (text.length == 1) nextView!!.requestFocus()
                 R.id.otp_edit_box2 -> if (text.length == 1) nextView!!.requestFocus()
@@ -301,6 +264,7 @@ class Verifyotp : AppCompatActivity() {
         return par.toString()
     }
 
+
     fun sendRequest(
         requestName: String,
         requestParams: String?,
@@ -330,20 +294,20 @@ class Verifyotp : AppCompatActivity() {
                 sessionHeaderValue,
                 timeStamp, requestIdHeaderValue
             )
-                val headersMessage: String? =
-                  getHeadersForPayloadGeneration(
-                        appTokenHeaderValue,
-                        phoneHashHeaderValue, apiKeyHeaderValue, sessionHeaderValue,
-                        requestIdHeaderValue
-                    )
-                val payloadMessage: String? =
-                 getMessageForPayload(
-                        timeStamp,
-                        requestName, requestParams!!, headersMessage!!
-                    )
-                val payLoad: String? = encodeParamsToSecret(apiSecret, payloadMessage!!)
-                val SIGNATURE = "signature"
-                headers[SIGNATURE] = payLoad
+            val headersMessage: String? =
+                getHeadersForPayloadGeneration(
+                    appTokenHeaderValue,
+                    phoneHashHeaderValue, apiKeyHeaderValue, sessionHeaderValue,
+                    requestIdHeaderValue
+                )
+            val payloadMessage: String? =
+                getMessageForPayload(
+                    timeStamp,
+                    requestName, requestParams!!, headersMessage!!
+                )
+            val payLoad: String? = encodeParamsToSecret(apiSecret, payloadMessage!!)
+            val SIGNATURE = "signature"
+            headers[SIGNATURE] = payLoad
 
             val future = RequestFuture.newFuture<Any>()
             val mVolleyRequest = VolleyRequest(
@@ -353,10 +317,8 @@ class Verifyotp : AppCompatActivity() {
 
             //Set cache allow false
             mVolleyRequest.setShouldCache(false)
-            // Add the request to the RequestQueue.
-            getPublicRequestQueue()!!.add<Any>(mVolleyRequest)
-            //Remove cache
-            getPublicRequestQueue()!!.getCache().clear()
+
+            VolleyController.getInstance(applicationContext).addToRequestQueue(mVolleyRequest);
             val apiResponse = future[1, TimeUnit.MINUTES]
             response = apiResponse.toString()
 
@@ -366,21 +328,22 @@ class Verifyotp : AppCompatActivity() {
             val err = "err"
             response
         } catch (ex: InterruptedException) {
-
+            Log.e("Ex InterruptedException", ex.message.toString())
             null
         } catch (tm: TimeoutException) {
-          null
+            Log.e("Ex TimeoutException", tm.message.toString())
+            null
         } catch (e: ExecutionException) {
-
+            Log.e("Ex ExecutionException", e.message.toString())
             null
         } catch (ex: Exception) {
-
+            Log.e("Ex Exception", ex.message.toString())
             null
         }
     }
 
     fun getPublicRequestQueue(): RequestQueue? {
-           var mNormalRequestQueue : RequestQueue? = Volley.newRequestQueue(applicationContext)
+        var mNormalRequestQueue: RequestQueue? = Volley.newRequestQueue(applicationContext)
         return mNormalRequestQueue
     }
 
@@ -405,4 +368,5 @@ class Verifyotp : AppCompatActivity() {
         headers["reqid"] = requestId
         return headers
     }
+
 }

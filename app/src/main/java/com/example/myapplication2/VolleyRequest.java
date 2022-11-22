@@ -90,23 +90,6 @@ public class VolleyRequest extends Request {
 
             String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response
                     .headers));
-            //If session is expired dont check for hmac
-            int returnCode = 1;
-
-            JSONObject json = new JSONObject(jsonString);
-            if (json.has("returncode"))
-                returnCode = json.getInt("returncode");
-
-           /* if (policy.isHmac() && returnCode != EnumManager.APIReturnCodes.InvalidSession
-                    .getValue()) {
-                String hmacsha256 = response.headers.get(CACHE_HEADER);
-                String hmaccomputed = EncodeString.encodeParamsToSecret(SharedPref.getPreferences
-                        (Constants.PREF_APISECRET), jsonString);
-//                if (hmaccomputed == null || !hmaccomputed.equals(hmacsha256)) {
-//                    return Response.success(new JSONObject(CONNECTION_INVALID),
-//                            HttpHeaderParser.parseCacheHeaders(response));
-//                }
-            }*/
             return Response.success(new JSONObject(jsonString), HttpHeaderParser
                     .parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
