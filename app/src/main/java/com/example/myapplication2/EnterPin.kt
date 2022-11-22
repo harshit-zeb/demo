@@ -57,24 +57,26 @@ class EnterPin : AppCompatActivity() {
         var apiSecret:String? = ""
         var apiKey:String? = ""
         var sessionToken:String? = ""
-        val sharedPref = this@EnterPin?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = getSharedPreferences("myData",Context.MODE_PRIVATE)
         var bundle:Bundle? = intent.extras
-        if(sharedPref.getString("User","False") == "True"){
-            verificationId= sharedPref.getString("verificationId","")
-            verificationCompleteToken= sharedPref.getString("verificationCompleteToken","")
-            otpTimestamp= sharedPref.getString("otpTimestamp","")
-            apiSecret= sharedPref.getString("apiSecret","")
-            apiKey= sharedPref.getString("apiKey","")
-            sessionToken= sharedPref.getString("sessionToken","")
-        }else if(bundle!= null){
-            bundle= intent.extras!!
-            verificationId= bundle.getString("verificationId")
-            verificationCompleteToken= bundle.getString("verificationCompleteToken")
-            otpTimestamp= bundle.getString("otpTimestamp")
-            apiSecret= bundle.getString("apiSecret")
-            apiKey= bundle.getString("apiKey")
-            sessionToken= bundle.getString("sessionToken")
-        }
+
+        if(sharedPref!!.getString("User","False") == "True"){
+            verificationId= sharedPref!!.getString("verificationId","")
+            verificationCompleteToken= sharedPref!!.getString("verificationCompleteToken","")
+            otpTimestamp= sharedPref!!.getString("otpTimestamp","")
+            apiSecret= sharedPref!!.getString("apiSecret","")
+            apiKey= sharedPref!!.getString("apiKey","")
+            sessionToken= sharedPref!!.getString("sessionToken","")
+        }else  if (bundle!=null){
+
+                bundle= intent.extras!!
+                verificationId= bundle.getString("verificationId")
+                verificationCompleteToken= bundle.getString("verificationCompleteToken")
+                otpTimestamp= bundle.getString("otpTimestamp")
+                apiSecret= bundle.getString("apiSecret")
+                apiKey= bundle.getString("apiKey")
+                sessionToken= bundle.getString("sessionToken")
+            }
 
 
         verify_pin_btn.setOnClickListener{
@@ -118,46 +120,62 @@ class EnterPin : AppCompatActivity() {
 //
 //
 //            })
-            val encyPin =
-                AESHelper.encrypt("1112", apiSecret)
-                    .trim()
 
-            var parameterCollection = mutableMapOf<String, String>()
-            parameterCollection["verificationId"] = verificationId!!
-            parameterCollection["verificationCompleteToken"] = verificationCompleteToken!!
-            parameterCollection["pin"] = encyPin
+            val sharedPref = getSharedPreferences("myData", Context.MODE_PRIVATE)
+            val userStatus = sharedPref.getString("User", "False")
+            if(userStatus == "False"){
+                val encyPin =
+                    AESHelper.encrypt("1112", apiSecret)
+                        .trim()
 
-            var jsonResponse: UserOtpResponse.userOtpData? = null
-            val t = Thread {
-                Log.d("RT", "Thread t Begins")
-                val url: String = "https://live.zebpay.co/api/v1/verifyaccountpin"
-                var response = sendRequest(
-                    url,
-                    getParameters(parameterCollection),
-                    apiSecret!!,
-                    apiKey!!,
-                    sessionToken!!,
-                    (2 * getCurrentTimeTicks()!!.toLong() - otpTimestamp!!.toLong()).toString(),
-                    "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc"
-                )
+                var parameterCollection = mutableMapOf<String, String>()
+                parameterCollection["verificationId"] = verificationId!!
+                parameterCollection["verificationCompleteToken"] = verificationCompleteToken!!
+                parameterCollection["pin"] = encyPin
 
-                if (response != null){
-                    Log.e("responseeeeee", response!!)
-                    jsonResponse = Gson()?.fromJson(response!!.trimIndent() , UserOtpResponse.userOtpData::class.java)
-                    if (jsonResponse != null) {
-                        if (jsonResponse!!.err == "Success") {
-                            //Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_LONG).show()
-                            val intent = Intent(applicationContext, MainActivity::class.java)
-                            startActivity(intent)
+                var jsonResponse: UserOtpResponse.userOtpData? = null
+                val t = Thread {
+                    Log.d("RT", "Thread t Begins")
+                    val url: String = "https://live.zebpay.co/api/v1/verifyaccountpin"
+                    var response = sendRequest(
+                        url,
+                        getParameters(parameterCollection),
+                        apiSecret!!,
+                        apiKey!!,
+                        sessionToken!!,
+                        (2 * getCurrentTimeTicks()!!.toLong() - otpTimestamp!!.toLong()).toString(),
+                        "ezSWtbhJ/WK3G6kI+ggMJcxUCJ4yWCApzK/l36nyhYc"
+                    )
+
+                    if (response != null){
+                        Log.e("responseeeeee", response!!)
+                        jsonResponse = Gson()?.fromJson(response!!.trimIndent() , UserOtpResponse.userOtpData::class.java)
+                        if (jsonResponse != null) {
+                            if (jsonResponse!!.err == "Success") {
+                                var sharedPref = getSharedPreferences("myData", Context.MODE_PRIVATE)
+                                var editor = sharedPref.edit()
+                                editor.putString("User","True")
+                                editor.putString("pin", "1112")
+                                editor.commit()
+                                //Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_LONG).show()
+                                val intent = Intent(applicationContext, MainActivity::class.java)
+                                startActivity(intent)
+                            }
+                        }else{
+                            // Toast.makeText(applicationContext, "invalid" , Toast.LENGTH_LONG).show()
                         }
-                    }else{
-                        // Toast.makeText(applicationContext, "invalid" , Toast.LENGTH_LONG).show()
                     }
+
+
                 }
-
-
+                t.start()
+            }else{
+                if(pinText == sharedPref.getString("pin","") ){
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
-            t.start()
+
 
 
 //            }else{

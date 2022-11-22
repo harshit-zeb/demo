@@ -2,6 +2,7 @@ package com.example.myapplication2
 
 //import retrofit2.converter.gson.GsonConverterFactory
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -40,6 +41,7 @@ const val BASE_URL_Otp = "https://live.zebpay.co/api/v1/"
 
 class Verifyotp : AppCompatActivity() {
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verifyotp)
@@ -125,20 +127,19 @@ class Verifyotp : AppCompatActivity() {
                     if (jsonResponse != null) {
                         if (jsonResponse!!.err == "Success") {
                             //Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_LONG).show()
-                            val sharedPref = this@Verifyotp?.getPreferences(Context.MODE_PRIVATE)
-                                ?: return@Thread
-                            with(sharedPref.edit()) {
-                                putString(
+                            val sharedPref = getSharedPreferences("myData",Context.MODE_PRIVATE)
+                            val editor = sharedPref!!.edit()
+                                editor.putString(
                                     "verificationCompleteToken",
                                     jsonResponse!!.VerificationCompleteToken
                                 )
-                                putString("otpTimestamp", jsonResponse!!.timestamp)
-                                putString("verificationCompleteToken", jsonResponse!!.VerificationCompleteToken)
-                                putString("apiSecret",apiSecret)
-                                putString("apiKey",apiKey)
-                                putString("sessionToken",sessionToken)
-                                apply()
-                            }
+                            editor.putString("otpTimestamp", jsonResponse!!.timestamp)
+                            editor.putString("verificationCompleteToken", jsonResponse!!.VerificationCompleteToken)
+                            editor.putString("apiSecret",apiSecret)
+//                            editor.putString("apiKey",apiKey)
+//                            editor.putString("sessionToken",sessionToken)
+                            editor.commit()
+
                             val intent = Intent(applicationContext, EnterPin::class.java)
                             intent.putExtra(
                                 "verificationCompleteToken",

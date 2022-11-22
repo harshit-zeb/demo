@@ -2,6 +2,7 @@ package com.example.myapplication2
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -27,13 +28,13 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val sharedPref = this@Login?.getPreferences(Context.MODE_PRIVATE) ?: return
-        val defaultValue = "False"
-        val userStatus= sharedPref.getString("User", defaultValue)
-      /*  if(userStatus == "True"){
+        val sharedPref = getSharedPreferences("myData", Context.MODE_PRIVATE)
+
+        val userStatus= sharedPref.getString("User", "False")
+        if(userStatus == "True"){
             val intent = Intent(applicationContext, EnterPin::class.java)
             startActivity(intent)
-        }*/
+        }
         countryNameList.add("India")
         countryCodeList.add("+91")
         loginbutton.isEnabled = false
@@ -79,16 +80,15 @@ const val BASE_URL_Login = "https://live.zebpay.co/api/v1/"
                         val responseBody:UserLoginResponse? = response.body()
                         Log.d("response",responseBody.toString())
                         if(responseBody!!.err == "Success"){
-                            val sharedPref = this@Login?.getPreferences(Context.MODE_PRIVATE) ?: return
-                            with(sharedPref.edit()){
-                                putString("User", "True")
-                                putString("verificationIntId",responseBody!!.VerificationIntId )
-                                putString("verificationId", responseBody!!.VerificationRequestId)
-                                putString("loginTimestamp", responseBody!!.timestamp)
-                                putString("session", responseBody!!.SessionToken)
-                                putString("apiKey", responseBody!!.APIKey)
-                                commit()
-                            }
+                            val sharedPref: SharedPreferences? = getSharedPreferences("myData",Context.MODE_PRIVATE)
+                            var editor: SharedPreferences.Editor = sharedPref!!.edit()
+                            editor.putString("verificationIntId",responseBody!!.VerificationIntId )
+                            editor.putString("verificationId", responseBody!!.VerificationRequestId)
+                            editor.putString("loginTimestamp", responseBody!!.timestamp)
+                            editor.putString("session", responseBody!!.SessionToken)
+                            editor.putString("apiKey", responseBody!!.APIKey)
+                            editor.commit()
+
                             Toast.makeText(applicationContext,"Login Successful" , Toast.LENGTH_LONG).show()
                             val intent = Intent(applicationContext, Verifyotp::class.java)
                             intent.putExtra("verificationIntId", responseBody!!.VerificationIntId)
